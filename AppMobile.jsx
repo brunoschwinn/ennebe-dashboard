@@ -25,97 +25,106 @@ const C = {
 
 // ── Pré-Venda ─────────────────────────────────────────────
 const PV = [
-  {w:"12/12",leads:39,qual:16,taxaQ:41.0,brSem:8, brNaSem:null,brMes:null},
-  {w:"19/12",leads:27,qual:15,taxaQ:55.6,brSem:14,brNaSem:null,brMes:null},
-  {w:"09/01",leads:24,qual:9, taxaQ:37.5,brSem:3, brNaSem:null,brMes:null},
-  {w:"16/01",leads:25,qual:11,taxaQ:44.0,brSem:7, brNaSem:null,brMes:null},
-  {w:"23/01",leads:31,qual:5, taxaQ:16.1,brSem:11,brNaSem:4,   brMes:20  },
-  {w:"30/01",leads:47,qual:17,taxaQ:36.2,brSem:2, brNaSem:5,   brMes:28  },
-  {w:"06/02",leads:28,qual:7, taxaQ:25.0,brSem:2, brNaSem:7,   brMes:9   },
-  {w:"13/02",leads:56,qual:21,taxaQ:37.5,brSem:2, brNaSem:2,   brMes:16  },
-  {w:"20/02",leads:66,qual:20,taxaQ:30.3,brSem:1, brNaSem:1,   brMes:18  },
-  {w:"01/03",leads:76,qual:13,taxaQ:17.1,brSem:0, brNaSem:7,   brMes:30  },
+  {w:"12/12",leads:39,qual:16,taxaQ:41.0,brSem:0, brNaSem:0,brMes:0  },
+  {w:"19/12",leads:27,qual:15,taxaQ:55.6,brSem:0, brNaSem:0,brMes:0  },
+  {w:"09/01",leads:24,qual:9, taxaQ:37.5,brSem:0, brNaSem:0,brMes:0  },
+  {w:"16/01",leads:25,qual:11,taxaQ:44.0,brSem:0, brNaSem:0,brMes:0  },
+  {w:"23/01",leads:31,qual:5, taxaQ:16.1,brSem:4, brNaSem:4, brMes:4 },
+  {w:"30/01",leads:47,qual:17,taxaQ:36.2,brSem:5, brNaSem:5, brMes:9 },
+  {w:"06/02",leads:28,qual:7, taxaQ:25.0,brSem:7, brNaSem:7, brMes:9 },
+  {w:"13/02",leads:56,qual:21,taxaQ:37.5,brSem:2, brNaSem:2, brMes:16},
+  {w:"20/02",leads:66,qual:20,taxaQ:30.3,brSem:1, brNaSem:1, brMes:18},
+  {w:"01/03",leads:76,qual:13,taxaQ:17.1,brSem:0, brNaSem:7, brMes:30},
 ];
 const PV_C = [ // Criciúma
-  {w:"12/12",leads:39,qual:16,taxaQ:41.0,brSem:8},
-  {w:"19/12",leads:27,qual:15,taxaQ:55.6,brSem:14},
-  {w:"09/01",leads:24,qual:9, taxaQ:37.5,brSem:3},
-  {w:"16/01",leads:25,qual:11,taxaQ:44.0,brSem:7},
-  {w:"23/01",leads:31,qual:5, taxaQ:16.1,brSem:4,brMes:20},
-  {w:"30/01",leads:47,qual:17,taxaQ:36.2,brSem:5,brMes:28},
-  {w:"06/02",leads:28,qual:7, taxaQ:25.0,brSem:7,brMes:9},
-  {w:"13/02",leads:48,qual:17,taxaQ:35.4,brSem:1,brMes:12},
+  {w:"12/12",leads:39,qual:16,taxaQ:41.0,brSem:0,brMes:0 },
+  {w:"19/12",leads:27,qual:15,taxaQ:55.6,brSem:0,brMes:0 },
+  {w:"09/01",leads:24,qual:9, taxaQ:37.5,brSem:0,brMes:0 },
+  {w:"16/01",leads:25,qual:11,taxaQ:44.0,brSem:0,brMes:0 },
+  {w:"23/01",leads:31,qual:5, taxaQ:16.1,brSem:4,brMes:4 },
+  {w:"30/01",leads:47,qual:17,taxaQ:36.2,brSem:5,brMes:9 },
+  {w:"06/02",leads:28,qual:7, taxaQ:25.0,brSem:7,brMes:9 },
+  {w:"13/02",leads:48,qual:17,taxaQ:35.4,brSem:2,brMes:12},
   {w:"20/02",leads:42,qual:8, taxaQ:19.0,brSem:1,brMes:14},
   {w:"01/03",leads:56,qual:8, taxaQ:14.3,brSem:0,brMes:25},
 ];
 const PV_A = [ // Araranguá — dados a partir de 13/02
-  {w:"13/02",leads:8, qual:4, taxaQ:50.0,brSem:1,brMes:4},
+  {w:"13/02",leads:8, qual:4, taxaQ:50.0,brSem:0,brMes:4},
   {w:"20/02",leads:24,qual:12,taxaQ:50.0,brSem:0,brMes:4},
   {w:"01/03",leads:20,qual:5, taxaQ:25.0,brSem:0,brMes:5},
 ];
 
 // ── Vendas Total ──────────────────────────────────────────
 const VD = [
-  {w:"12/12",cS:0, aS:0,  vS:0,      cM:0,  aM:0,  vM:0,      nQ:10,nA:27,nR:404350, pipe:0,  cart:0       },
-  {w:"19/12",cS:2, aS:6,  vS:54700,  cM:0,  aM:0,  vM:0,      nQ:7, nA:9, nR:116370, pipe:0,  cart:0       },
-  {w:"09/01",cS:1, aS:1,  vS:2900,   cM:1,  aM:1,  vM:2900,   nQ:5, nA:5, nR:48840,  pipe:14, cart:1157160 },
-  {w:"16/01",cS:2, aS:6,  vS:82389,  cM:3,  aM:7,  vM:85289,  nQ:17,nA:18,nR:196380, pipe:20, cart:1156580 },
-  {w:"23/01",cS:2, aS:2,  vS:18420,  cM:5,  aM:9,  vM:103709, nQ:19,nA:39,nR:327447, pipe:45, cart:1735049 },
-  {w:"30/01",cS:8, aS:10, vS:107902, cM:13, aM:19, vM:211611, nQ:23,nA:24,nR:266083, pipe:51, cart:1787764 },
-  {w:"06/02",cS:2, aS:4,  vS:12210,  cM:2,  aM:4,  vM:12210,  nQ:27,nA:35,nR:371175, pipe:76, cart:2040994 },
-  {w:"13/02",cS:2, aS:7,  vS:50000,  cM:4,  aM:11, vM:62210,  nQ:11,nA:11,nR:97380,  pipe:62, cart:2116056 },
-  {w:"20/02",cS:4, aS:13, vS:83886,  cM:8,  aM:24, vM:146096, nQ:8, nA:8, nR:142260, pipe:69, cart:2186056 },
-  {w:"01/03",cS:6, aS:25, vS:245885, cM:13, aM:48, vM:376931, nQ:13,nA:14,nR:416628, pipe:71, cart:2485305 },
+  {w:"12/12",cS:0, aS:0,  vS:0,      cM:0,  aM:0,  vM:0,      nQ:10,nA:27,nR:404350,  pipe:0,  cart:0       },
+  {w:"19/12",cS:2, aS:6,  vS:54700,  cM:0,  aM:0,  vM:0,      nQ:7, nA:9, nR:116370,  pipe:0,  cart:0       },
+  {w:"09/01",cS:1, aS:1,  vS:2900,   cM:1,  aM:1,  vM:2900,   nQ:5, nA:5, nR:48840,   pipe:14, cart:1157160 },
+  {w:"16/01",cS:2, aS:6,  vS:82389,  cM:3,  aM:7,  vM:85289,  nQ:17,nA:18,nR:196380,  pipe:20, cart:1156580 },
+  {w:"23/01",cS:2, aS:2,  vS:18420,  cM:5,  aM:9,  vM:103709, nQ:19,nA:39,nR:327447,  pipe:45, cart:1735049 },
+  {w:"30/01",cS:8, aS:10, vS:107902, cM:13, aM:19, vM:211611, nQ:23,nA:24,nR:266083,  pipe:51, cart:1787764 },
+  {w:"06/02",cS:2, aS:4,  vS:12210,  cM:2,  aM:4,  vM:12210,  nQ:27,nA:35,nR:371175,  pipe:76, cart:2040994 },
+  {w:"13/02",cS:2, aS:7,  vS:50000,  cM:4,  aM:11, vM:62210,  nQ:11,nA:11,nR:97380,   pipe:62, cart:2116056 },
+  {w:"20/02",cS:3, aS:12, vS:68836,  cM:7,  aM:23, vM:131046, nQ:8, nA:8, nR:142260,  pipe:69, cart:2186056 },
+  {w:"01/03",cS:6, aS:25, vS:245885, cM:13, aM:48, vM:376931, nQ:13,nA:14,nR:416628,  pipe:71, cart:2485305 },
 ];
 // Criciúma
 const VD_C = [
-  {w:"12/12",cS:0,aS:0,  vS:0,     cM:null,aM:null,vM:null,  nQ:10,nA:27,nR:404350, pipe:null,cart:null   },
-  {w:"19/12",cS:2,aS:6,  vS:54700, cM:null,aM:null,vM:null,  nQ:7, nA:9, nR:116370, pipe:null,cart:null   },
-  {w:"09/01",cS:1,aS:1,  vS:2900,  cM:1,   aM:1,   vM:2900,  nQ:5, nA:5, nR:48840,  pipe:14,  cart:1157160},
-  {w:"16/01",cS:2,aS:6,  vS:82389, cM:3,   aM:7,   vM:85289, nQ:17,nA:18,nR:196380, pipe:20,  cart:1156580},
-  {w:"23/01",cS:1,aS:1,  vS:4420,  cM:4,   aM:8,   vM:89709, nQ:8, nA:21,nR:208285, pipe:27,  cart:1364865},
-  {w:"30/01",cS:7,aS:9,  vS:91099, cM:11,  aM:17,  vM:180808,nQ:22,nA:23,nR:251083, pipe:32,  cart:1402580},
-  {w:"06/02",cS:0,aS:0,  vS:0,     cM:0,   aM:0,   vM:0,     nQ:16,nA:24,nR:294980, pipe:39,  cart:1703840},
-  {w:"13/02",cS:1,aS:1,  vS:15000, cM:1,   aM:1,   vM:15000, nQ:8, nA:8, nR:67380,  pipe:44,  cart:1745220},
-  {w:"20/02",cS:3,aS:12, vS:71260, cM:4,   aM:13,  vM:86260, nQ:6, nA:6, nR:122260, pipe:49,  cart:1795220},
-  {w:"01/03",cS:6,aS:25, vS:245885,cM:9,  aM:37,  vM:317095,nQ:9, nA:9, nR:129628, pipe:48,  cart:1807468},
+  {w:"12/12",cS:0, aS:0,  vS:0,      cM:0, aM:0,  vM:0,      nQ:10,nA:27,nR:404350, pipe:0,  cart:null   },
+  {w:"19/12",cS:2, aS:6,  vS:54700,  cM:0, aM:0,  vM:0,      nQ:7, nA:9, nR:116370, pipe:0,  cart:null   },
+  {w:"09/01",cS:1, aS:1,  vS:2900,   cM:1, aM:1,  vM:2900,   nQ:5, nA:5, nR:48840,  pipe:14, cart:1157160},
+  {w:"16/01",cS:2, aS:6,  vS:82389,  cM:3, aM:7,  vM:85289,  nQ:17,nA:18,nR:196380, pipe:20, cart:1156580},
+  {w:"23/01",cS:1, aS:1,  vS:4420,   cM:4, aM:8,  vM:89709,  nQ:8, nA:21,nR:208285, pipe:27, cart:1364865},
+  {w:"30/01",cS:7, aS:9,  vS:91099,  cM:11,aM:17, vM:180808, nQ:22,nA:23,nR:251083, pipe:32, cart:1402580},
+  {w:"06/02",cS:0, aS:0,  vS:0,      cM:0, aM:0,  vM:0,      nQ:16,nA:24,nR:294980, pipe:39, cart:1703840},
+  {w:"13/02",cS:1, aS:1,  vS:15000,  cM:1, aM:1,  vM:15000,  nQ:8, nA:8, nR:67380,  pipe:44, cart:1745220},
+  {w:"20/02",cS:2, aS:11, vS:56210,  cM:3, aM:12, vM:71210,  nQ:6, nA:6, nR:122260, pipe:49, cart:1795220},
+  {w:"01/03",cS:6, aS:25, vS:245885, cM:9, aM:37, vM:317095, nQ:9, nA:9, nR:129628, pipe:48, cart:1807468},
 ];
 // Araranguá
 const VD_A = [
-  {w:"23/01",cS:1,aS:1,vS:14000, cM:1, aM:1, vM:14000, nQ:11,nA:18,nR:119162,pipe:18,cart:370184},
-  {w:"30/01",cS:1,aS:1,vS:16803, cM:2, aM:2, vM:30803, nQ:1, nA:1, nR:15000, pipe:19,cart:385184},
-  {w:"06/02",cS:2,aS:4,vS:12210, cM:2, aM:4, vM:12210, nQ:11,nA:11,nR:76195, pipe:37,cart:337154},
-  {w:"13/02",cS:1,aS:6,vS:35000, cM:3, aM:10,vM:47210, nQ:3, nA:3, nR:30000, pipe:18,cart:370836},
-  {w:"20/02",cS:1,aS:1,vS:12626, cM:4, aM:11,vM:59836, nQ:2, nA:2, nR:20000, pipe:20,cart:390836},
-  {w:"01/03",cS:0,aS:0, vS:0,     cM:4, aM:11,vM:59836, nQ:4, nA:5, nR:287000,pipe:23,cart:677836},
+  {w:"23/01",cS:1,aS:1, vS:14000, cM:1, aM:1,  vM:14000, nQ:11,nA:18,nR:119162, pipe:18,cart:370184},
+  {w:"30/01",cS:1,aS:1, vS:16803, cM:2, aM:2,  vM:30803, nQ:1, nA:1, nR:15000,  pipe:19,cart:385184},
+  {w:"06/02",cS:2,aS:4, vS:12210, cM:2, aM:4,  vM:12210, nQ:11,nA:11,nR:76195,  pipe:37,cart:337154},
+  {w:"13/02",cS:1,aS:6, vS:35000, cM:3, aM:10, vM:47210, nQ:3, nA:3, nR:30000,  pipe:18,cart:370836},
+  {w:"20/02",cS:1,aS:1, vS:12626, cM:4, aM:11, vM:59836, nQ:2, nA:2, nR:20000,  pipe:20,cart:390836},
+  {w:"01/03",cS:0,aS:0, vS:0,     cM:4, aM:11, vM:59836, nQ:4, nA:5, nR:287000, pipe:23,cart:677836},
 ];
 
 // ── Conferência ───────────────────────────────────────────
 const CF = [
-  {w:"12/12",conf:15,vConf:182540, aConf:67,vaConf:708389,atr:5, vAtr:45500  },
-  {w:"19/12",conf:9, vConf:76012,  aConf:78,vaConf:632377,atr:11,vAtr:143050 },
-  {w:"09/01",conf:2, vConf:10562,  aConf:76,vaConf:621815,atr:32,vAtr:315370 },
-  {w:"16/01",conf:2, vConf:29300,  aConf:78,vaConf:592515,atr:33,vAtr:317427 },
-  {w:"23/01",conf:13,vConf:128850, aConf:62,vaConf:463665,atr:34,vAtr:330977 },
-  {w:"30/01",conf:4, vConf:62154,  aConf:78,vaConf:577182,atr:38,vAtr:267177 },
-  {w:"06/02",conf:4, vConf:63570,  aConf:90,vaConf:588827,atr:35,vAtr:203607 },
-  {w:"13/02",conf:10,vConf:102925, aConf:94,vaConf:956305,atr:24,vAtr:183357 },
-  {w:"20/02",conf:15,vConf:80435,  aConf:88,vaConf:511200,atr:11,vAtr:47125  },
-  {w:"01/03",conf:12,vConf:20541,  aConf:86,vaConf:479363,atr:9, vAtr:58073  },
+  {w:"12/12",conf:15,vConf:182540, aConf:67,vaConf:708389, atr:5, vAtr:45500  },
+  {w:"19/12",conf:9, vConf:76012,  aConf:78,vaConf:632377, atr:11,vAtr:143050 },
+  {w:"09/01",conf:2, vConf:10562,  aConf:76,vaConf:621815, atr:32,vAtr:315370 },
+  {w:"16/01",conf:2, vConf:29300,  aConf:78,vaConf:592515, atr:33,vAtr:317427 },
+  {w:"23/01",conf:13,vConf:128850, aConf:62,vaConf:463665, atr:34,vAtr:330977 },
+  {w:"30/01",conf:4, vConf:62154,  aConf:78,vaConf:577182, atr:38,vAtr:267177 },
+  {w:"06/02",conf:4, vConf:63570,  aConf:90,vaConf:588827, atr:35,vAtr:203607 },
+  {w:"13/02",conf:10,vConf:102925, aConf:94,vaConf:956305, atr:24,vAtr:183357 },
+  {w:"20/02",conf:15,vConf:80435,  aConf:88,vaConf:511200, atr:11,vAtr:47125  },
+  {w:"01/03",conf:12,vConf:20541,  aConf:86,vaConf:479363, atr:9, vAtr:58073  },
 ];
 
 // ── Produção ──────────────────────────────────────────────
 const PROD = [
   {w:"12/12",iniS:5, finS:3, tmp:3, iniM:null,finM:null},
   {w:"19/12",iniS:1, finS:2, tmp:5, iniM:null,finM:null},
-  {w:"09/01",iniS:7, finS:0, tmp:0, iniM:7,   finM:0  },
-  {w:"16/01",iniS:0, finS:7, tmp:5, iniM:7,   finM:7  },
-  {w:"23/01",iniS:5, finS:5, tmp:4, iniM:12,  finM:12 },
-  {w:"30/01",iniS:1, finS:1, tmp:2, iniM:13,  finM:13 },
-  {w:"06/02",iniS:9, finS:9, tmp:2, iniM:9,   finM:9  },
-  {w:"13/02",iniS:3, finS:3, tmp:4, iniM:12,  finM:12 },
-  {w:"20/02",iniS:10,finS:10,tmp:4, iniM:22,  finM:22 },
-  {w:"01/03",iniS:4, finS:4, tmp:4, iniM:26,  finM:26 },
+  {w:"09/01",iniS:7, finS:0, tmp:0, iniM:7,   finM:0   },
+  {w:"16/01",iniS:0, finS:7, tmp:5, iniM:7,   finM:7   },
+  {w:"23/01",iniS:5, finS:5, tmp:4, iniM:12,  finM:12  },
+  {w:"30/01",iniS:1, finS:1, tmp:2, iniM:13,  finM:13  },
+  {w:"06/02",iniS:9, finS:9, tmp:2, iniM:9,   finM:9   },
+  {w:"13/02",iniS:3, finS:3, tmp:4, iniM:12,  finM:12  },
+  {w:"20/02",iniS:10,finS:10,tmp:4, iniM:22,  finM:22  },
+  {w:"01/03",iniS:4, finS:4, tmp:4, iniM:26,  finM:26  },
+];
+const PREMONT = [
+  {w:"16/01",iniS:6, finS:2, tmp:null,iniM:6, finM:2 },
+  {w:"23/01",iniS:5, finS:2, tmp:1,   iniM:11,finM:4 },
+  {w:"30/01",iniS:1, finS:2, tmp:1,   iniM:12,finM:6 },
+  {w:"06/02",iniS:7, finS:3, tmp:1,   iniM:7, finM:3 },
+  {w:"13/02",iniS:2, finS:1, tmp:2,   iniM:9, finM:4 },
+  {w:"20/02",iniS:4, finS:2, tmp:2,   iniM:12,finM:6 },
+  {w:"01/03",iniS:15,finS:14,tmp:2,   iniM:28,finM:20},
 ];
 
 // ── Pré-Montagem ──────────────────────────────────────────
@@ -131,59 +140,59 @@ const PM = [
 
 // ── Montagem ──────────────────────────────────────────────
 const MONT = [
-  {w:"12/12",iniS:5,concS:1,iniM:null,concM:null,pend:null},
-  {w:"19/12",iniS:5,concS:0,iniM:null,concM:null,pend:null},
-  {w:"09/01",iniS:0,concS:0,iniM:0,   concM:0,   pend:null},
-  {w:"16/01",iniS:2,concS:1,iniM:2,   concM:1,   pend:null},
-  {w:"23/01",iniS:2,concS:1,iniM:4,   concM:2,   pend:null},
-  {w:"30/01",iniS:9,concS:2,iniM:13,  concM:4,   pend:null},
-  {w:"06/02",iniS:0,concS:0,iniM:0,   concM:0,   pend:8  },
-  {w:"13/02",iniS:8,concS:5,iniM:8,   concM:5,   pend:5  },
-  {w:"20/02",iniS:1,concS:1,iniM:9,   concM:6,   pend:10 },
-  {w:"01/03",iniS:3,concS:3,iniM:12,  concM:9,   pend:10 },
+  {w:"12/12",iniS:5, concS:1,iniM:null,concM:null,pend:null},
+  {w:"19/12",iniS:5, concS:0,iniM:null,concM:null,pend:null},
+  {w:"09/01",iniS:0, concS:0,iniM:0,   concM:0,   pend:null},
+  {w:"16/01",iniS:2, concS:1,iniM:2,   concM:1,   pend:null},
+  {w:"23/01",iniS:2, concS:1,iniM:4,   concM:2,   pend:null},
+  {w:"30/01",iniS:9, concS:2,iniM:13,  concM:4,   pend:null},
+  {w:"06/02",iniS:0, concS:0,iniM:0,   concM:0,   pend:8   },
+  {w:"13/02",iniS:8, concS:5,iniM:8,   concM:5,   pend:5   },
+  {w:"20/02",iniS:1, concS:1,iniM:9,   concM:6,   pend:10  },
+  {w:"01/03",iniS:3, concS:3,iniM:12,  concM:9,   pend:10  },
 ];
 
 // ── Assistência Técnica ───────────────────────────────────
 // Criciúma = Total (Araranguá sem dados registrados)
 const AT = [
-  {w:"12/12",cham:0,ini:0,fin:4,aberto:43},
-  {w:"19/12",cham:0,ini:0,fin:9,aberto:34},
-  {w:"09/01",cham:0,ini:2,fin:0,aberto:34},
-  {w:"16/01",cham:2,ini:6,fin:6,aberto:30},
-  {w:"23/01",cham:1,ini:8,fin:5,aberto:26},
-  {w:"30/01",cham:0,ini:6,fin:4,aberto:22},
-  {w:"06/02",cham:1,ini:8,fin:5,aberto:18},
-  {w:"13/02",cham:1,ini:9,fin:5,aberto:14},
-  {w:"20/02",cham:5,ini:4,fin:4,aberto:15},
-  {w:"01/03",cham:14,ini:7,fin:5,aberto:24},
+  {w:"12/12",cham:0, ini:0, fin:4,aberto:43},
+  {w:"19/12",cham:0, ini:0, fin:9,aberto:34},
+  {w:"09/01",cham:0, ini:2, fin:0,aberto:34},
+  {w:"16/01",cham:2, ini:6, fin:6,aberto:30},
+  {w:"23/01",cham:1, ini:8, fin:5,aberto:26},
+  {w:"30/01",cham:0, ini:6, fin:4,aberto:22},
+  {w:"06/02",cham:1, ini:8, fin:5,aberto:18},
+  {w:"13/02",cham:1, ini:9, fin:5,aberto:14},
+  {w:"20/02",cham:5, ini:4, fin:4,aberto:15},
+  {w:"01/03",cham:14,ini:7, fin:5,aberto:24},
 ];
 
 // ── SAC ───────────────────────────────────────────────────
 const SAC = [
-  {w:"12/12",cobr:2, recl:2,google:3,clt:3, resol:0,   pubRet:0,cham:0,nps:null,nota:null},
-  {w:"19/12",cobr:13,recl:0,google:0,clt:11,resol:0,   pubRet:0,cham:0,nps:null,nota:null},
-  {w:"09/01",cobr:13,recl:0,google:0,clt:13,resol:0,   pubRet:0,cham:0,nps:null,nota:null},
-  {w:"16/01",cobr:5, recl:1,google:1,clt:7, resol:0,   pubRet:0,cham:2,nps:null,nota:null},
-  {w:"23/01",cobr:5, recl:0,google:0,clt:5, resol:0,   pubRet:0,cham:1,nps:null,nota:null},
-  {w:"30/01",cobr:15,recl:0,google:0,clt:15,resol:0,   pubRet:5,cham:0,nps:null,nota:null},
-  {w:"06/02",cobr:21,recl:0,google:1,clt:21,resol:0,   pubRet:0,cham:1,nps:null,nota:null},
-  {w:"13/02",cobr:18,recl:0,google:0,clt:18,resol:3,   pubRet:0,cham:1,nps:60,  nota:8.8 },
-  {w:"20/02",cobr:17,recl:0,google:0,clt:17,resol:null,pubRet:0,cham:5,nps:null,nota:null},
-  {w:"01/03",cobr:29,recl:0,google:0,clt:29,resol:1,   pubRet:0,cham:14,nps:null,nota:null},
+  {w:"12/12",cobr:2, recl:2,google:3,clt:3, resol:0,pubRet:0,cham:0, nps:null,nota:null},
+  {w:"19/12",cobr:13,recl:0,google:0,clt:11,resol:0,pubRet:0,cham:0, nps:null,nota:null},
+  {w:"09/01",cobr:13,recl:0,google:0,clt:13,resol:0,pubRet:0,cham:0, nps:null,nota:null},
+  {w:"16/01",cobr:5, recl:1,google:1,clt:7, resol:0,pubRet:0,cham:2, nps:null,nota:null},
+  {w:"23/01",cobr:5, recl:0,google:0,clt:5, resol:0,pubRet:0,cham:1, nps:null,nota:null},
+  {w:"30/01",cobr:15,recl:0,google:0,clt:15,resol:0,pubRet:5,cham:0, nps:null,nota:null},
+  {w:"06/02",cobr:21,recl:0,google:1,clt:21,resol:0,pubRet:0,cham:1, nps:null,nota:null},
+  {w:"13/02",cobr:18,recl:0,google:0,clt:18,resol:3,pubRet:0,cham:1, nps:60,  nota:8.8 },
+  {w:"20/02",cobr:17,recl:0,google:0,clt:17,resol:1,pubRet:0,cham:5, nps:null,nota:null},
+  {w:"01/03",cobr:29,recl:0,google:0,clt:29,resol:1,pubRet:0,cham:14,nps:null,nota:null},
 ];
 
 // ── Financeiro ────────────────────────────────────────────
 const FIN = [
-  {w:"12/12",mg:null, cond:0,   vCont:0,     ent:null,  parc:null, aym:null,  cart:null, saldo:null},
-  {w:"19/12",mg:null, cond:50,  vCont:54700, ent:null,  parc:null, aym:null,  cart:null, saldo:null},
-  {w:"09/01",mg:81.8, cond:100, vCont:2900,  ent:0,     parc:2900, aym:0,     cart:0,    saldo:0   },
-  {w:"16/01",mg:70.9, cond:100, vCont:76420, ent:24500, parc:0,    aym:51920, cart:0,    saldo:0   },
-  {w:"23/01",mg:79.4, cond:100, vCont:4420,  ent:0,     parc:0,    aym:0,     cart:4420, saldo:0   },
-  {w:"30/01",mg:68.3, cond:100, vCont:91099, ent:39582, parc:0,    aym:27087, cart:17710,saldo:6721},
-  {w:"06/02",mg:71.9, cond:100, vCont:12210, ent:6900,  parc:0,    aym:5310,  cart:0,    saldo:0   },
-  {w:"13/02",mg:64.1, cond:100, vCont:50000, ent:23800, parc:0,    aym:17500, cart:0,    saldo:8700},
-  {w:"20/02",mg:70.3, cond:100, vCont:83886, ent:2750,  parc:0,    aym:53460, cart:28676,saldo:0   },
-  {w:"01/03",mg:59.2, cond:100, vCont:245885,ent:33500, parc:26449,aym:123616,cart:0,    saldo:62320},
+  {w:"12/12",mg:0,   cond:0,   vCont:0,      ent:null,  parc:null, aym:null,  cart:null, saldo:null },
+  {w:"19/12",mg:0,   cond:50,  vCont:54700,  ent:null,  parc:null, aym:null,  cart:null, saldo:null },
+  {w:"09/01",mg:81.8,cond:100, vCont:2900,   ent:0,     parc:2900, aym:null,  cart:null, saldo:null },
+  {w:"16/01",mg:70.9,cond:100, vCont:76420,  ent:24500, parc:null, aym:51920, cart:null, saldo:null },
+  {w:"23/01",mg:79.4,cond:100, vCont:4420,   ent:0,     parc:0,    aym:0,     cart:4420, saldo:null },
+  {w:"30/01",mg:68.3,cond:100, vCont:91099,  ent:39582, parc:null, aym:27087, cart:17710,saldo:6721 },
+  {w:"06/02",mg:71.9,cond:100, vCont:12210,  ent:6900,  parc:null, aym:5310,  cart:null, saldo:null },
+  {w:"13/02",mg:64.1,cond:100, vCont:50000,  ent:23800, parc:null, aym:17500, cart:null, saldo:8700 },
+  {w:"20/02",mg:70.3,cond:100, vCont:68836,  ent:2750,  parc:null, aym:53460, cart:28676,saldo:null },
+  {w:"01/03",mg:59.2,cond:100, vCont:245885, ent:33500, parc:26449,aym:123616,cart:null, saldo:62320},
 ];
 // % mix pagamento por semana
 const FIN_PAY = [
@@ -193,24 +202,24 @@ const FIN_PAY = [
   {w:"30/01",ent:43.4,parc:0,   aym:29.7, cart:19.4, saldo:7.4},
   {w:"06/02",ent:56.5,parc:0,   aym:43.5, cart:0,    saldo:0  },
   {w:"13/02",ent:47.6,parc:0,   aym:35.0, cart:0,    saldo:17.4},
-  {w:"20/02",ent:3.3, parc:0,   aym:63.7, cart:34.2, saldo:0  },
-  {w:"01/03",ent:13.6,parc:10.8, aym:50.3, cart:0,    saldo:25.3},
+  {w:"20/02",ent:4.0, parc:0,   aym:77.7, cart:41.7, saldo:0  },
+  {w:"01/03",ent:13.6,parc:10.8,aym:50.3, cart:0,    saldo:25.3},
 ];
 
 // ── RH ────────────────────────────────────────────────────
 // Horas extras convertidas de timedelta para horas decimais:
 // 1 day, 0:00:00 = 24h | 2 days, 22:38:00 = 70.63h | etc.
 const RH = [
-  {w:"12/12",abs:15.9,to:0.0,  hExt:67.93,admT:0,demT:0,total:null,loja:null,fab:null,abL:null,abF:null,toF:0,   hExtL:null, hExtF:null},
-  {w:"19/12",abs:13.1,to:2.7,  hExt:48.0, admT:0,demT:0,total:null,loja:null,fab:null,abL:null,abF:null,toF:null,hExtL:null, hExtF:null},
-  {w:"09/01",abs:10.1,to:5.6,  hExt:24.0, admT:0,demT:0,total:34,  loja:17,  fab:17,  abL:7.2, abF:13.0,toF:5.6, hExtL:14.23,hExtF:9.77},
-  {w:"16/01",abs:11.1,to:2.9,  hExt:70.63,admT:1,demT:1,total:34,  loja:17,  fab:17,  abL:6.5, abF:15.6,toF:5.9, hExtL:14.53,hExtF:56.1},
-  {w:"23/01",abs:8.6, to:4.3,  hExt:60.73,admT:2,demT:1,total:35,  loja:17,  fab:18,  abL:8.5, abF:8.7, toF:8.3, hExtL:20.63,hExtF:40.1},
-  {w:"30/01",abs:0.0, to:5.7,  hExt:92.9, admT:2,demT:2,total:35,  loja:17,  fab:18,  abL:null,abF:null,toF:11.1,hExtL:27.07,hExtF:65.83},
-  {w:"06/02",abs:3.8, to:4.2,  hExt:90.23,admT:2,demT:1,total:36,  loja:17,  fab:19,  abL:1.55,abF:5.96,toF:7.9, hExtL:26.18,hExtF:64.05},
-  {w:"13/02",abs:3.7, to:4.1,  hExt:43.57,admT:2,demT:1,total:37,  loja:16,  fab:21,  abL:2.17,abF:5.17,toF:4.8, hExtL:18.8, hExtF:24.77},
-  {w:"20/02",abs:2.4, to:1.4,  hExt:52.3, admT:0,demT:1,total:36,  loja:16,  fab:20,  abL:0.51,abF:4.27,toF:2.5, hExtL:11.52,hExtF:40.78},
-  {w:"01/03",abs:3.41,to:1.43, hExt:115.17,admT:0,demT:1,total:35,  loja:16,  fab:19,  abL:1.2, abF:5.62,toF:2.63,hExtL:39.77,hExtF:75.40},
+  {w:"12/12",abs:15.92,to:0,   hExt:67.93,admT:0,demT:0,total:0, loja:null,fab:null,abL:null,abF:null,toF:0,    hExtL:null, hExtF:null },
+  {w:"19/12",abs:13.1, to:2.7, hExt:48.0, admT:0,demT:0,total:0, loja:null,fab:null,abL:null,abF:null,toF:0,    hExtL:null, hExtF:null },
+  {w:"09/01",abs:10.1, to:5.6, hExt:24.0, admT:0,demT:0,total:34,loja:17,  fab:17,  abL:7.2, abF:13.0,toF:5.6,  hExtL:14.23,hExtF:9.77 },
+  {w:"16/01",abs:11.05,to:2.94,hExt:70.63,admT:1,demT:1,total:34,loja:17,  fab:17,  abL:6.5, abF:15.6,toF:5.88, hExtL:14.53,hExtF:56.1 },
+  {w:"23/01",abs:8.6,  to:4.29,hExt:60.73,admT:2,demT:1,total:35,loja:17,  fab:18,  abL:8.5, abF:8.7, toF:8.33, hExtL:20.63,hExtF:40.1 },
+  {w:"30/01",abs:0,    to:5.71,hExt:92.9, admT:2,demT:2,total:35,loja:17,  fab:18,  abL:null,abF:null,toF:11.11,hExtL:27.07,hExtF:65.83},
+  {w:"06/02",abs:3.755,to:4.17,hExt:90.23,admT:2,demT:1,total:36,loja:17,  fab:19,  abL:1.55,abF:5.96,toF:7.89, hExtL:26.18,hExtF:64.05},
+  {w:"13/02",abs:3.67, to:4.05,hExt:43.57,admT:2,demT:1,total:37,loja:16,  fab:21,  abL:2.17,abF:5.17,toF:4.76, hExtL:18.8, hExtF:24.77},
+  {w:"20/02",abs:2.39, to:1.39,hExt:52.3, admT:0,demT:1,total:36,loja:16,  fab:20,  abL:0.51,abF:4.27,toF:2.5,  hExtL:11.52,hExtF:40.78},
+  {w:"01/03",abs:3.41, to:1.43,hExt:115.17,admT:0,demT:1,total:35,loja:16, fab:19,  abL:1.2, abF:5.62,toF:2.63, hExtL:39.77,hExtF:75.4 },
 ];
 // Perda de produção por absenteísmo (apenas 09/01 e 16/01 têm dados)
 const RH_PERDA = [
@@ -220,14 +229,14 @@ const RH_PERDA = [
 
 // ── Marketing ─────────────────────────────────────────────
 const MKT_E = [ // Ennebê — apenas 2 semanas
-  {w:"13/02",inv:2084.44,invM:3880.27,cpcG:0.47,cpcM:0.87,rej:92.1,roasS:7.19, roasM:3.86, acS:885, acM:1675,seg:10709,eng:1.06},
-  {w:"20/02",inv:2225.99,invM:6781.28,cpcG:0.41,cpcM:0.77,rej:91.2,roasS:32.46,roasM:10.65,acS:1238,acM:2883,seg:10738,eng:1.40},
-  {w:"01/03",inv:1896.19,invM:8117.87,cpcG:0.19,cpcM:0.85,rej:93.3,roasS:71.05,roasM:25.36,acS:2253,acM:5104,seg:10813,eng:1.30},
+  {w:"13/02",inv:2084.44,invM:3880.27,cpcG:0.47,cpcM:0.87,rej:92.1,roasS:7.19,  roasM:3.86, acS:885, acM:1675,seg:10709,eng:1.06},
+  {w:"20/02",inv:2225.99,invM:6781.28,cpcG:0.41,cpcM:0.77,rej:91.2,roasS:32.46, roasM:10.65,acS:1238,acM:2883,seg:10738,eng:1.40},
+  {w:"01/03",inv:1896.19,invM:8117.87,cpcG:0.19,cpcM:0.85,rej:93.3,roasS:71.05, roasM:25.36,acS:2253,acM:5104,seg:10813,eng:1.30},
 ];
 const MKT_I = [ // Idealle
-  {w:"13/02",inv:319.83,invM:516.74,cpcG:1.24,cpcM:1.00,rej:57.5,roasS:109.43,roasM:67.73,acS:111,acM:310,seg:6258,eng:0.40},
-  {w:"20/02",inv:511.57,invM:990.81,cpcG:1.22,cpcM:0.75,rej:56.2,roasS:0,     roasM:0,    acS:115,acM:359,seg:6265,eng:0.60},
-  {w:"01/03",inv:372.62, invM:1325.95,cpcG:1.28,cpcM:1.10,rej:57.1,roasS:0,    roasM:0,    acS:77, acM:401,seg:6278,eng:0},
+  {w:"13/02",inv:319.83,invM:516.74, cpcG:1.24,cpcM:1.00,rej:57.5,roasS:109.43,roasM:67.73,acS:111,acM:310,seg:6258,eng:0.40},
+  {w:"20/02",inv:511.57,invM:990.81, cpcG:1.22,cpcM:0.75,rej:56.2,roasS:0,     roasM:35.32,acS:115,acM:359,seg:6265,eng:0.60},
+  {w:"01/03",inv:372.62,invM:1325.95,cpcG:1.28,cpcM:1.10,rej:57.0,roasS:0,     roasM:26.40,acS:77, acM:401,seg:6278,eng:0   },
 ];
 
 // ── Soberanos ─────────────────────────────────────────────

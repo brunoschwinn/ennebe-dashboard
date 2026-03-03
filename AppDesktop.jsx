@@ -75,7 +75,6 @@ const CF = [
   {w:"06/02",conf:8, aConf:1, atr:22,val:83600},{w:"13/02",conf:3, aConf:4, atr:11,val:41800},
   {w:"20/02",conf:15,aConf:0, atr:11,val:47100},
   {w:"01/03",conf:12,aConf:0, atr:9, val:58073},
-  {w:"01/03",conf:12,aConf:0, atr:9, val:58073},
 ];
 
 const PROD = [
@@ -84,7 +83,6 @@ const PROD = [
   {w:"23/01",ini:9, fin:7, tmed:4},{w:"30/01",ini:8, fin:9, tmed:4},
   {w:"06/02",ini:11,fin:9, tmed:4},{w:"13/02",ini:7, fin:8, tmed:4},
   {w:"20/02",ini:10,fin:10,tmed:4},
-  {w:"01/03",ini:4, fin:4, tmed:4},
   {w:"01/03",ini:4, fin:4, tmed:4},
 ];
 const PREMONT=[

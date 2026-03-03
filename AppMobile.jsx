@@ -100,7 +100,7 @@ const CF = [
   {w:"30/01",conf:4, vConf:62154,  aConf:78,vaConf:577182,atr:38,vAtr:267177 },
   {w:"06/02",conf:4, vConf:63570,  aConf:90,vaConf:588827,atr:35,vAtr:203607 },
   {w:"13/02",conf:10,vConf:102925, aConf:94,vaConf:956305,atr:24,vAtr:183357 },
-  {w:"20/02",conf:15,vConf:80435,  aConf:61,vaConf:366144,atr:11,vAtr:47125  },
+  {w:"20/02",conf:15,vConf:80435,  aConf:88,vaConf:511200,atr:11,vAtr:47125  },
   {w:"01/03",conf:12,vConf:20541,  aConf:86,vaConf:479363,atr:9, vAtr:58073  },
 ];
 

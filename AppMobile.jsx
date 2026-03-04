@@ -20,7 +20,7 @@ const C = {
 
 // ═══════════════════════════════════════════════════════════
 //  DADOS — 100% verificados contra planilha fonte
-//  Semanas: ["12/12","19/12","09/01","16/01","23/01","30/01","06/02","13/02","20/02"]
+//  Semanas: ["12/12","19/12","09/01","16/01","23/01","30/01","06/02","13/02","20/02","01/03"]
 // ═══════════════════════════════════════════════════════════
 
 // ── Pré-Venda ─────────────────────────────────────────────
@@ -134,7 +134,7 @@ const PM = [
   {w:"30/01",iniS:1,finS:2,tmp:1,   iniM:12,finM:6},
   {w:"06/02",iniS:7,finS:3,tmp:1,   iniM:7, finM:3},
   {w:"13/02",iniS:2,finS:1,tmp:2,   iniM:9, finM:4},
-  {w:"20/02",iniS:3,finS:2,tmp:2,   iniM:12,finM:6},
+  {w:"20/02",iniS:4,finS:2,tmp:2,   iniM:12,finM:6},
   {w:"01/03",iniS:15,finS:14,tmp:2,  iniM:28,finM:20},
 ];
 
@@ -398,11 +398,11 @@ function PgInicio(){
       <div style={{textAlign:"center",marginBottom:14,padding:"10px",
         background:C.surface,borderRadius:12,border:`1px solid ${C.border}`}}>
         <div style={{fontSize:9,color:C.muted,textTransform:"uppercase",letterSpacing:1}}>Semana de Referência</div>
-        <div style={{fontSize:18,fontWeight:800,color:C.acc}}>20 de Fevereiro de 2026</div>
-        <div style={{fontSize:10,color:C.muted}}>Série histórica: dez/2025 → fev/2026 (9 semanas)</div>
+        <div style={{fontSize:18,fontWeight:800,color:C.acc}}>{PV.at(-1).w.replace('/',' de ').replace('12','Dezembro').replace('01','Janeiro').replace('02','Fevereiro').replace('03','Março')} de 2026</div>
+        <div style={{fontSize:10,color:C.muted}}>Série histórica: dez/2025 → {PV.at(-1).w} ({PV.length} semanas)</div>
       </div>
 
-      <Box title="Funil Comercial — Semana 20/02">
+      <Box title={`Funil Comercial — Semana ${PV.at(-1).w}`}>
         <div style={{display:"flex",gap:0}}>
           {[
             {l:"Leads",v:lp.leads,c:C.blue},
@@ -476,38 +476,41 @@ function PgComercial(){
   const lpT=PV.at(-1),lpC=PV_C.at(-1),lpA=PV_A.at(-1);
   const lvT=VD.at(-1),lvC=VD_C.at(-1),lvA=VD_A.at(-1);
 
-  const compLeads=[
-    ...PV_C.slice(0,7).map(d=>({w:d.w,cric:d.leads,arar:0})),
-    {w:"13/02",cric:48,arar:8},
-    {w:"20/02",cric:42,arar:24},
-  ];
-  const compContratos=[
-    {w:"12/12",cric:0,    arar:0},
-    {w:"19/12",cric:54700,arar:0},
-    {w:"09/01",cric:2900, arar:0},
-    {w:"16/01",cric:82389,arar:0},
-    {w:"23/01",cric:4420, arar:14000},
-    {w:"30/01",cric:91099,arar:16803},
-    {w:"06/02",cric:0,    arar:12210},
-    {w:"13/02",cric:15000,arar:35000},
-    {w:"20/02",cric:71260,arar:12626},
-  ];
-  const compCarteira=[
-    {w:"23/01",cric:1364865,arar:370184},
-    {w:"30/01",cric:1402580,arar:385184},
-    {w:"06/02",cric:1703840,arar:337154},
-    {w:"13/02",cric:1745220,arar:370836},
-    {w:"20/02",cric:1795220,arar:390836},
-  ];
-  const compPipe=[
-    {w:"09/01",cric:14,arar:0},
-    {w:"16/01",cric:20,arar:0},
-    {w:"23/01",cric:27,arar:18},
-    {w:"30/01",cric:32,arar:19},
-    {w:"06/02",cric:39,arar:37},
-    {w:"13/02",cric:44,arar:18},
-    {w:"20/02",cric:49,arar:20},
-  ];
+  // Arrays comparativos dinâmicos — sempre refletem todas as semanas disponíveis
+  const compLeads = PV_C.map(d=>{
+    const a=PV_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.leads, arar:a?a.leads:0};
+  });
+  const compQual = PV_C.map(d=>{
+    const a=PV_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.qual, arar:a?a.qual:0};
+  });
+  const compContratos = VD_C.map(d=>{
+    const a=VD_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.vS, arar:a?a.vS:0};
+  });
+  const compCarteira = VD_C.filter(d=>d.cart).map(d=>{
+    const a=VD_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.cart||0, arar:a?a.cart:0};
+  });
+  const compPipe = VD_C.filter(d=>d.pipe>0).map(d=>{
+    const a=VD_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.pipe, arar:a?a.pipe:0};
+  });
+  const compNeg = VD_C.map(d=>{
+    const a=VD_A.find(x=>x.w===d.w);
+    return {w:d.w, cric:d.nR||0, arar:a?a.nR:0};
+  });
+  // Funil: leads → qualificados → contratos (semana)
+  const funilWeeks = PV.slice(-6).map(d=>{
+    const v=VD.find(x=>x.w===d.w);
+    return {w:d.w, leads:d.leads, qual:d.qual, contratos:v?v.cS:0};
+  });
+  // Correlação MKT → Leads
+  const mktLeads = MKT_E.map(d=>{
+    const p=PV.find(x=>x.w===d.w);
+    return {w:d.w, inv:d.inv, leads:p?p.leads:0, roas:d.roasS};
+  });
 
   return (
     <div>
@@ -553,10 +556,10 @@ function PgComercial(){
       <HR/>
       <H2 icon="🔵🩷" title="Pré-Venda: Criciúma vs Araranguá"/>
       <InfoTag color={C.arar} icon="ℹ️" text="Araranguá começou a registrar leads em 13/02. Dados anteriores sem separação."/>
-      <CmpChip label="Leads — Semana 20/02" vc={42} va={24}/>
-      <CmpChip label="Qualificados" vc={8} va={12}/>
-      <CmpChip label="Taxa de Qualificação" vc={19.0} va={50.0} unit="%"/>
-      <CmpChip label="Briefings no Mês" vc={14} va={4}/>
+      <CmpChip label={`Leads — Semana ${lpC.w}`} vc={lpC.leads} va={lpA.leads}/>
+      <CmpChip label="Qualificados" vc={lpC.qual} va={lpA.qual}/>
+      <CmpChip label="Taxa de Qualificação" vc={lpC.taxaQ} va={lpA.taxaQ} unit="%"/>
+      <CmpChip label="Briefings no Mês" vc={lpC.brMes} va={lpA.brMes}/>
 
       <Box title="Leads Criciúma vs Araranguá por Semana">
         <ResponsiveContainer width="100%" height={180}>
@@ -812,7 +815,7 @@ function PgOperacional(){
       <R2><K label="AT Iniciadas" val={lat.ini} tp={trend(AT,"ini")} color={C.blue}/>
           <K label="AT Finalizadas" val={lat.fin} tp={trend(AT,"fin")} color={C.green}/></R2>
 
-      <Box title="AT em Aberto — Evolução (de 43 para 15)">
+      <Box title={`AT em Aberto — Evolução (${AT[0].aberto} → ${AT.at(-1).aberto})`}>
         <ResponsiveContainer width="100%" height={170}>
           <ComposedChart data={AT}>
             <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
@@ -875,21 +878,19 @@ function PgFinanceiro(){
         </ResponsiveContainer>
       </Box>
 
-      <Box title="Mix de Pagamento (%) — 20/02">
+      <Box title={`Mix de Pagamento (%) — ${lf.w}`}>
+        {(()=>{const lp=FIN_PAY.at(-1);const items=[["Entrada",lp.ent,C.blue],["Aymoré",lp.aym,C.acc],["Saldo",lp.saldo,C.green],["Parcel.",lp.parc,C.teal],["Cartão",lp.cart,C.purple]].filter(([,v])=>v>0);return(
         <div style={{display:"flex",gap:12,alignItems:"center"}}>
           <ResponsiveContainer width={120} height={120}>
             <PieChart>
-              <Pie data={[
-                {name:"Entrada",v:3.3,  color:C.blue},
-                {name:"Aymoré", v:63.7, color:C.acc},
-                {name:"Cartão", v:34.2, color:C.purple},
-              ]} dataKey="v" innerRadius={30} outerRadius={54}>
-                {[C.blue,C.acc,C.purple].map((c,i)=><Cell key={i} fill={c}/>)}
+              <Pie data={items.map(([name,v])=>({name,v}))} dataKey="v" innerRadius={30} outerRadius={54}>
+                {items.map(([,,co],i)=><Cell key={i} fill={co}/>)}
               </Pie>
+              <Tooltip formatter={(v,n)=>[`${v}%`,n]}/>
             </PieChart>
           </ResponsiveContainer>
           <div style={{flex:1}}>
-            {[["Entrada",3.3,C.blue],["Aymoré",63.7,C.acc],["Cartão",34.2,C.purple]].map(([l,v,co],i)=>(
+            {items.map(([l,v,co],i)=>(
               <div key={i} style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
                 <div style={{display:"flex",alignItems:"center",gap:6}}>
                   <div style={{width:8,height:8,borderRadius:2,background:co}}/>
@@ -899,7 +900,7 @@ function PgFinanceiro(){
               </div>
             ))}
           </div>
-        </div>
+        </div>);})()}
       </Box>
 
       <Box title="Evolução Mix de Pagamento — % por Semana">
@@ -1070,41 +1071,73 @@ function PgFinanceiro(){
 }
 
 function PgMkt(){
+  const lme=MKT_E.at(-1), lmi=MKT_I.at(-1);
+  const prev_e=MKT_E.at(-2), prev_i=MKT_I.at(-2);
+  const tpInv  = prev_e ? +((lme.inv/prev_e.inv-1)*100).toFixed(1) : null;
+  const tpRoas = prev_e ? +((lme.roasS/prev_e.roasS-1)*100).toFixed(1) : null;
+  const tpAc   = prev_e ? +((lme.acS/prev_e.acS-1)*100).toFixed(1) : null;
+  const tpSeg  = prev_e ? +((lme.seg/prev_e.seg-1)*100).toFixed(1) : null;
+  const cpcData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,eCpcG:d.cpcG,eCpcM:d.cpcM,iCpcG:di.cpcG||null,iCpcM:di.cpcM||null};
+  });
+  const invData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.inv,idealle:di.inv||0};
+  });
+  const roasData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.roasS,idealle:di.roasS||0};
+  });
+  const roasMData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.roasM,idealle:di.roasM||0};
+  });
+  const acData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.acS,idealle:di.acS||0};
+  });
+  const rejData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.rej,idealle:di.rej||0};
+  });
+  const segData = MKT_E.map((d,i)=>{
+    const di=MKT_I[i]||{};
+    return {w:d.w,ennebe:d.seg,idealle:di.seg||0};
+  });
+  // Correlação MKT → PV (mesmo período)
+  const mktPvCorr = MKT_E.map((d,i)=>{
+    const pv=PV.find(x=>x.w===d.w)||{};
+    const vd=VD.find(x=>x.w===d.w)||{};
+    return {w:d.w,inv:d.inv,leads:pv.leads||0,roas:d.roasS,cont:vd.cS||0};
+  });
   return (
     <div>
-      <InfoTag color={C.acc} icon="⚠️" text="Dados de marketing disponíveis apenas a partir de 13/02/2026 (2 semanas)."/>
+      <InfoTag color={C.acc} icon="📅" text={`Dados de marketing disponíveis a partir de 13/02/2026 (${MKT_E.length} semanas).`}/>
 
       <H2 icon="📣" title="Ennebê — Marketing Digital"/>
-      <R2><K label="Invest. Semana" val={`R$ 2.226`} tp="6.8" color={C.acc} sub="Mês acum.: R$ 6.781"/>
-          <K label="ROAS Semana" val="32.46×" tp="351.2" color={C.green} sub="ROAS Mês: 10.65×"/></R2>
-      <R2><K label="CPC Google" val="R$ 0,41" tp="-12.8" color={C.green}/>
-          <K label="CPC Meta" val="R$ 0,77" tp="-11.5" color={C.green}/></R2>
-      <R2><K label="Acessos/Sem." val="1.238" tp="39.9" color={C.blue} sub="Mês: 2.883"/>
-          <K label="Seguidores IG" val="10.738" tp="0.3" color={C.purple} sub="Engaj. 1,4%"/></R2>
+      <R2><K label="Invest. Semana" val={brl(lme.inv)} tp={tpInv} color={C.acc} sub={`Mês acum.: ${brl(lme.invM)}`}/>
+          <K label="ROAS Semana" val={`${lme.roasS}×`} tp={tpRoas} color={C.green} sub={`ROAS Mês: ${lme.roasM}×`}/></R2>
+      <R2><K label="CPC Google" val={`R$ ${lme.cpcG?.toFixed(2)}`} tp={prev_e?+((lme.cpcG/prev_e.cpcG-1)*100).toFixed(1)*-1:null} color={C.green}/>
+          <K label="CPC Meta"   val={`R$ ${lme.cpcM?.toFixed(2)}`} tp={prev_e?+((lme.cpcM/prev_e.cpcM-1)*100).toFixed(1)*-1:null} color={C.green}/></R2>
+      <R2><K label="Acessos/Sem." val={lme.acS?.toLocaleString("pt-BR")} tp={tpAc} color={C.blue} sub={`Mês: ${lme.acM?.toLocaleString("pt-BR")}`}/>
+          <K label="Seguidores IG" val={lme.seg?.toLocaleString("pt-BR")} tp={tpSeg} color={C.purple} sub={`Engaj. ${lme.eng}%`}/></R2>
+      <R2><K label="Taxa Rejeição" val={`${lme.rej}%`} tp={prev_e?+((lme.rej/prev_e.rej-1)*100).toFixed(1)*-1:null} inv color={C.red} sub="ideal < 40%"/>
+          <K label="ROAS Acum. Mês" val={`${lme.roasM}×`} color={C.teal}/></R2>
 
-      <Box title="CPC Comparativo — Ennebê vs Idealle (R$)">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-          {[
-            {l:"Ennebê Google",  s1:"0,47", s2:"0,41", c:C.acc},
-            {l:"Ennebê Meta",    s1:"0,87", s2:"0,77", c:C.acc},
-            {l:"Idealle Google", s1:"1,24", s2:"1,22", c:C.pink},
-            {l:"Idealle Meta",   s1:"1,00", s2:"0,75", c:C.pink},
-          ].map((d,i)=>(
-            <div key={i} style={{background:"#1a1f30",borderRadius:8,padding:"10px 12px",borderLeft:`2px solid ${d.c}`}}>
-              <div style={{fontSize:9,color:C.muted}}>{d.l}</div>
-              <div style={{fontSize:17,fontWeight:700,color:d.c,margin:"3px 0"}}>R$ {d.s2}</div>
-              <div style={{fontSize:9,color:C.muted}}>13/02: R$ {d.s1}</div>
-            </div>
-          ))}
-        </div>
-      </Box>
+      <H2 icon="🌸" title="Idealle — Marketing Digital"/>
+      <R2><K label="Invest. Semana" val={brl(lmi.inv)} color={C.pink} sub={`Mês: ${brl(lmi.invM)}`}/>
+          <K label="ROAS Semana" val={`${lmi.roasS}×`} color={lmi.roasS>0?C.green:C.muted} sub={`ROAS Mês: ${lmi.roasM?.toFixed(1)}×`}/></R2>
+      <R2><K label="CPC Google" val={`R$ ${lmi.cpcG?.toFixed(2)}`} color={C.green}/>
+          <K label="CPC Meta"   val={`R$ ${lmi.cpcM?.toFixed(2)}`} color={C.green}/></R2>
+      <R2><K label="Acessos/Sem." val={lmi.acS?.toLocaleString("pt-BR")} color={C.blue} sub={`Mês: ${lmi.acM?.toLocaleString("pt-BR")}`}/>
+          <K label="Seguidores IG" val={lmi.seg?.toLocaleString("pt-BR")} color={C.purple}/></R2>
+
+      <HR/><H2 icon="📊" title="Gráficos Comparativos"/>
 
       <Box title="Investimento Semanal — Ennebê vs Idealle (R$)">
-        <ResponsiveContainer width="100%" height={160}>
-          <BarChart data={[
-            {w:"13/02", ennebe:2084.44, idealle:319.83},
-            {w:"20/02", ennebe:2225.99, idealle:511.57},
-          ]} barSize={28}>
+        <ResponsiveContainer width="100%" height={170}>
+          <BarChart data={invData} barSize={22}>
             <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
             <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
             <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`R$${(v/1000).toFixed(1)}K`}/>
@@ -1116,12 +1149,9 @@ function PgMkt(){
         </ResponsiveContainer>
       </Box>
 
-      <Box title="ROAS — Ennebê vs Idealle (semana)">
-        <ResponsiveContainer width="100%" height={160}>
-          <BarChart data={[
-            {w:"13/02",ennebe:7.19, idealle:109.43},
-            {w:"20/02",ennebe:32.46,idealle:0},
-          ]} barSize={28}>
+      <Box title="ROAS Semanal — Ennebê vs Idealle (×)">
+        <ResponsiveContainer width="100%" height={170}>
+          <BarChart data={roasData} barSize={22}>
             <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
             <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
             <YAxis tick={{fill:C.muted,fontSize:9}}/>
@@ -1131,45 +1161,102 @@ function PgMkt(){
             <Bar dataKey="idealle" name="Idealle" fill={C.pink} radius={[4,4,0,0]}/>
           </BarChart>
         </ResponsiveContainer>
-        <div style={{fontSize:10,color:C.muted,marginTop:4}}>Idealle 20/02 zerado — dado pendente de retroação</div>
       </Box>
 
-      <Box title="Taxa de Rejeição do Site (%) — 13/02 vs 20/02">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
-          {[
-            {l:"Ennebê 13/02",v:"92,1%",c:C.red},
-            {l:"Ennebê 20/02",v:"91,2%",c:C.red},
-            {l:"Idealle 13/02",v:"57,5%",c:C.acc},
-            {l:"Idealle 20/02",v:"56,2%",c:C.acc},
-          ].map((d,i)=>(
-            <div key={i} style={{background:"#1a1f30",borderRadius:8,padding:"10px 12px",borderLeft:`2px solid ${d.c}`}}>
-              <div style={{fontSize:9,color:C.muted}}>{d.l}</div>
-              <div style={{fontSize:20,fontWeight:700,color:d.c,margin:"4px 0"}}>{d.v}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{fontSize:10,color:C.red,marginTop:8}}>⚠️ Ennebê acima de 90% — ideal: abaixo de 40%</div>
+      <Box title="ROAS Acumulado no Mês — Evolução">
+        <ResponsiveContainer width="100%" height={170}>
+          <LineChart data={roasMData}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
+            <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}×`}/>
+            <Tooltip content={<Tip fmt={v=>`${v}×`}/>}/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Line type="monotone" dataKey="ennebe"  name="Ennebê"  stroke={C.acc}  strokeWidth={2.5} dot={{r:4}}/>
+            <Line type="monotone" dataKey="idealle" name="Idealle" stroke={C.pink} strokeWidth={2.5} dot={{r:4}}/>
+          </LineChart>
+        </ResponsiveContainer>
       </Box>
 
-      <Box title="Seguidores e Engajamento Instagram">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:10}}>
-          {[
-            {l:"Ennebê — Seg.",   s1:10709,s2:10738,e:"1,4%",c:C.acc},
-            {l:"Idealle — Seg.",  s1:6258, s2:6265, e:"0,6%",c:C.pink},
-          ].map((d,i)=>(
-            <div key={i} style={{background:"#1a1f30",borderRadius:8,padding:"10px 12px"}}>
-              <div style={{fontSize:9,color:C.muted}}>{d.l}</div>
-              <div style={{fontSize:16,fontWeight:700,color:d.c,margin:"3px 0"}}>{d.s2.toLocaleString("pt-BR")}</div>
-              <div style={{fontSize:9,color:C.green}}>+{d.s2-d.s1}/sem</div>
-              <div style={{fontSize:9,color:C.muted}}>Engaj: {d.e}</div>
-            </div>
-          ))}
-        </div>
+      <Box title="Acessos ao Site por Semana — Ennebê vs Idealle">
+        <ResponsiveContainer width="100%" height={170}>
+          <BarChart data={acData} barSize={22}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
+            <YAxis tick={{fill:C.muted,fontSize:9}}/>
+            <Tooltip content={<Tip/>}/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Bar dataKey="ennebe"  name="Ennebê"  fill={C.acc}  radius={[4,4,0,0]}/>
+            <Bar dataKey="idealle" name="Idealle" fill={C.pink} radius={[4,4,0,0]}/>
+          </BarChart>
+        </ResponsiveContainer>
+      </Box>
+
+      <Box title="CPC Google e Meta — Ennebê vs Idealle (R$)">
+        <ResponsiveContainer width="100%" height={170}>
+          <BarChart data={cpcData} barSize={13}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
+            <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`R$${v}`}/>
+            <Tooltip content={<Tip fmt={v=>`R$ ${v?.toFixed(2)}`}/>}/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Bar dataKey="eCpcG" name="Ennebê Google" fill={C.acc}    radius={[3,3,0,0]}/>
+            <Bar dataKey="eCpcM" name="Ennebê Meta"   fill={C.teal}   radius={[3,3,0,0]}/>
+            <Bar dataKey="iCpcG" name="Idealle Google" fill={C.pink}   radius={[3,3,0,0]}/>
+            <Bar dataKey="iCpcM" name="Idealle Meta"   fill={C.purple} radius={[3,3,0,0]}/>
+          </BarChart>
+        </ResponsiveContainer>
+      </Box>
+
+      <Box title="Taxa de Rejeição do Site (%) — Ennebê vs Idealle">
+        <ResponsiveContainer width="100%" height={170}>
+          <LineChart data={rejData}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
+            <YAxis tick={{fill:C.muted,fontSize:9}} domain={[0,100]} tickFormatter={v=>`${v}%`}/>
+            <Tooltip content={<Tip fmt={v=>`${v}%`}/>}/>
+            <ReferenceLine y={40} stroke={C.green} strokeDasharray="4 4"/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Line type="monotone" dataKey="ennebe"  name="Ennebê"  stroke={C.red}  strokeWidth={2.5} dot={{r:4}}/>
+            <Line type="monotone" dataKey="idealle" name="Idealle" stroke={C.acc}  strokeWidth={2.5} dot={{r:4}}/>
+          </LineChart>
+        </ResponsiveContainer>
+        <div style={{fontSize:9,color:C.green,marginTop:4}}>--- Meta: abaixo de 40%</div>
+      </Box>
+
+      <Box title="Seguidores Instagram — Ennebê vs Idealle">
+        <ResponsiveContainer width="100%" height={170}>
+          <LineChart data={segData}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
+            <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(1)}K`}/>
+            <Tooltip content={<Tip fmt={v=>v?.toLocaleString("pt-BR")}/>}/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Line type="monotone" dataKey="ennebe"  name="Ennebê"  stroke={C.acc}  strokeWidth={2.5} dot={{r:4}}/>
+            <Line type="monotone" dataKey="idealle" name="Idealle" stroke={C.pink} strokeWidth={2.5} dot={{r:4}}/>
+          </LineChart>
+        </ResponsiveContainer>
+      </Box>
+
+      <HR/><H2 icon="🔗" title="Correlação: Investimento → Leads → Contratos"/>
+      <Box title="Invest. MKT vs Leads Gerados vs Contratos">
+        <ResponsiveContainer width="100%" height={190}>
+          <ComposedChart data={mktPvCorr}>
+            <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+            <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+            <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`R$${(v/1000).toFixed(0)}K`}/>
+            <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
+            <Tooltip content={<Tip/>}/>
+            <Legend wrapperStyle={{fontSize:10}}/>
+            <Bar yAxisId="l" dataKey="inv"   name="Invest. R$" fill={C.acc}   radius={[3,3,0,0]} barSize={14}/>
+            <Line yAxisId="r" type="monotone" dataKey="leads" name="Leads"    stroke={C.blue}   strokeWidth={2.5} dot={{r:3}}/>
+            <Line yAxisId="r" type="monotone" dataKey="cont"  name="Contratos" stroke={C.green}  strokeWidth={2.5} dot={{r:3}}/>
+          </ComposedChart>
+        </ResponsiveContainer>
+        <div style={{fontSize:9,color:C.muted,marginTop:4}}>💡 ROAS semana 01/03: {lme.roasS}× — cada R$1 investido retornou R${lme.roasS} em contratos</div>
       </Box>
     </div>
   );
 }
-
 function PgCorrelacoes(){
   // Dados de correlação (semana a semana)
   const funil = [0,1,2,3,4,5,6,7,8].map(i=>({
@@ -1225,7 +1312,7 @@ function PgCorrelacoes(){
       </Box>
 
       <H2 icon="1️⃣" title="Marketing → Leads → Contratos"/>
-      <Box title="Funil Semanal: Leads / Qualificados / Contratos" note="📈 Semana 20/02: maior volume de leads (66) coincide com 4 contratos — acima da média.">
+      <Box title="Funil Semanal: Leads / Qualificados / Contratos" {`📈 Semana ${PV.at(-1).w}: ${PV.at(-1).leads} leads → ${VD.at(-1).cS} contratos`}>
         <ResponsiveContainer width="100%" height={200}>
           <ComposedChart data={funil}>
             <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>

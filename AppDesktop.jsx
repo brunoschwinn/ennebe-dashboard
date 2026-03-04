@@ -4,7 +4,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   Legend, PieChart, Pie, Cell, RadarChart, Radar,
   PolarGrid, PolarAngleAxis, PolarRadiusAxis, ComposedChart,
-  ReferenceLine
+  ReferenceLine, ScatterChart, Scatter, ZAxis, Treemap, Funnel, FunnelChart, LabelList
 } from "recharts";
 
 // ═══════════════════════════════════════════════════════════
@@ -31,24 +31,24 @@ const PV = [
   {w:"06/02",leads:28,qual:7, taxaQ:25.0,brSem:7},
   {w:"13/02",leads:56,qual:21,taxaQ:37.5,brSem:2},
   {w:"20/02",leads:66,qual:20,taxaQ:30.3,brSem:1},
-  {w:"01/03",leads:76,qual:13,taxaQ:17.1,brSem:0},
+  {w:"01/03",leads:76,qual:13,taxaQ:17.1,brSem:7},
 ];
 const PV_C=[
-  {w:"12/12",leads:39,qual:16},
-  {w:"19/12",leads:27,qual:15},
-  {w:"09/01",leads:24,qual:9},
-  {w:"16/01",leads:25,qual:11},
-  {w:"23/01",leads:31,qual:5},
-  {w:"30/01",leads:47,qual:17},
-  {w:"06/02",leads:28,qual:7},
-  {w:"13/02",leads:48,qual:17},
-  {w:"20/02",leads:42,qual:8},
-  {w:"01/03",leads:56,qual:8},
+  {w:"12/12",leads:39,qual:16,taxaQ:41.0,brNaSem:null},
+  {w:"19/12",leads:27,qual:15,taxaQ:55.6,brNaSem:null},
+  {w:"09/01",leads:24,qual:9, taxaQ:37.5,brNaSem:null},
+  {w:"16/01",leads:25,qual:11,taxaQ:44.0,brNaSem:null},
+  {w:"23/01",leads:31,qual:5, taxaQ:16.1,brNaSem:4   },
+  {w:"30/01",leads:47,qual:17,taxaQ:36.2,brNaSem:5   },
+  {w:"06/02",leads:28,qual:7, taxaQ:25.0,brNaSem:7   },
+  {w:"13/02",leads:48,qual:17,taxaQ:35.4,brNaSem:1   },
+  {w:"20/02",leads:42,qual:8, taxaQ:19.0,brNaSem:1   },
+  {w:"01/03",leads:56,qual:8, taxaQ:14.3,brNaSem:6   },
 ];
 const PV_A=[
-  {w:"13/02",leads:8, qual:4},
-  {w:"20/02",leads:24,qual:12},
-  {w:"01/03",leads:20,qual:5},
+  {w:"13/02",leads:8, qual:4, taxaQ:50.0,brNaSem:1},
+  {w:"20/02",leads:24,qual:12,taxaQ:50.0,brNaSem:0},
+  {w:"01/03",leads:20,qual:5, taxaQ:25.0,brNaSem:1},
 ];
 
 const VD = [
@@ -76,12 +76,12 @@ const VD_C=[
   {w:"01/03",vS:245885, cart:1807468 },
 ];
 const VD_A=[
-  {w:"23/01",vS:14000, cart:370184 },
-  {w:"30/01",vS:16803, cart:385184 },
-  {w:"06/02",vS:12210, cart:337154 },
-  {w:"13/02",vS:35000, cart:370836 },
-  {w:"20/02",vS:12626, cart:390836 },
-  {w:"01/03",vS:0,     cart:677836 },
+  {w:"23/01",cS:1,aS:1, vS:14000,cart:370184,pipe:18,nQ:11},
+  {w:"30/01",cS:1,aS:1, vS:16803,cart:385184,pipe:19,nQ:1 },
+  {w:"06/02",cS:2,aS:4, vS:12210,cart:337154,pipe:37,nQ:11},
+  {w:"13/02",cS:1,aS:6, vS:35000,cart:370836,pipe:18,nQ:3 },
+  {w:"20/02",cS:1,aS:1, vS:12626,cart:390836,pipe:20,nQ:2 },
+  {w:"01/03",cS:0,aS:0, vS:0,    cart:677836,pipe:23,nQ:4 },
 ];
 
 const CF = [
@@ -140,6 +140,27 @@ const AT = [
   {w:"13/02",aberto:14,cham:1, ini:9, fin:5},
   {w:"20/02",aberto:15,cham:5, ini:4, fin:4},
   {w:"01/03",aberto:24,cham:14,ini:7, fin:5},
+];
+const AT_C=[
+  {w:"12/12",aberto:43,cham:0,ini:0,fin:4},
+  {w:"19/12",aberto:34,cham:0,ini:0,fin:9},
+  {w:"09/01",aberto:34,cham:0,ini:2,fin:0},
+  {w:"16/01",aberto:30,cham:2,ini:6,fin:6},
+  {w:"23/01",aberto:26,cham:1,ini:8,fin:5},
+  {w:"30/01",aberto:22,cham:0,ini:6,fin:4},
+  {w:"06/02",aberto:18,cham:1,ini:8,fin:5},
+  {w:"13/02",aberto:14,cham:1,ini:9,fin:5},
+  {w:"20/02",aberto:15,cham:5,ini:4,fin:4},
+  {w:"01/03",aberto:11,cham:1,ini:7,fin:5},
+];
+const AT_A=[
+  {w:"01/03",aberto:13,cham:13,ini:0,fin:0},
+];
+// Marketing Total (combinado Ennebê + Idealle)
+const MKT_T=[
+  {w:"13/02",inv:2404,acS:996, acM:1985,seg:16967},
+  {w:"20/02",inv:2738,acS:1353,acM:3242,seg:17003},
+  {w:"01/03",inv:2269,acS:2330,acM:5505,seg:17091},
 ];
 
 const SAC = [
@@ -467,16 +488,35 @@ function PgInicio(){
 }
 
 function PgComercial(){
+  const lpC=PV_C.at(-1), lpA=PV_A.at(-1);
+  const lvC=VD_C.at(-1), lvA=VD_A.at(-1);
+  // Comparativos dinâmicos — todos os dados de ambas as lojas
+  const compLeads = PV_C.map(d=>{const a=PV_A.find(x=>x.w===d.w); return {w:d.w,cric:d.leads,arar:a?a.leads:0};});
+  const compQual  = PV_C.map(d=>{const a=PV_A.find(x=>x.w===d.w); return {w:d.w,cric:d.qual, arar:a?a.qual:0};});
+  const compVendas= VD_C.map(d=>{const a=VD_A.find(x=>x.w===d.w); return {w:d.w,cric:d.vS,   arar:a?a.vS:0};});
+  const compPipe  = VD_C.filter(d=>d.pipe>0).map(d=>{const a=VD_A.find(x=>x.w===d.w); return {w:d.w,cric:d.pipe,arar:a?a.pipe:0};});
+  const compCartW = VD_C.filter(d=>d.cart).map(d=>{const a=VD_A.find(x=>x.w===d.w); return {w:d.w,cric:d.cart||0,arar:a?a.cart:0};});
+  const compBriefings = PV_C.filter(d=>d.brNaSem!=null).map(d=>{const a=PV_A.find(x=>x.w===d.w); return {w:d.w,cric:d.brNaSem||0,arar:a?a.brNaSem||0:0};});
+  const compTaxaQ = PV_C.map(d=>{const a=PV_A.find(x=>x.w===d.w); return {w:d.w,cric:d.taxaQ,arar:a?a.taxaQ:null};});
+  // Funil de conversão semana atual
+  const funnelData=[
+    {name:"Leads",cric:lpC.leads,arar:lpA.leads,fill:C.blue},
+    {name:"Qualificados",cric:lpC.qual,arar:lpA.qual,fill:C.purple},
+    {name:"Briefings",cric:lpC.brNaSem||0,arar:lpA.brNaSem||0,fill:C.teal},
+    {name:"Contratos",cric:lvC.cS,arar:lvA.cS,fill:C.green},
+  ];
+  // Acumulado Araranguá desde abertura
+  const araData=PV_A.map(d=>{const v=VD_A.find(x=>x.w===d.w)||{}; return {w:d.w,leads:d.leads,qual:d.qual,cS:v.cS||0,vS:v.vS||0,cart:v.cart||0,pipe:v.pipe||0};});
   return (
     <div>
       <SEC title="Pré-Venda" icon="📩">
         <div style={G(4,12)}>
-          <K label="Leads Sem. 20/02" val={PV.at(-1).leads} sub="(+15% vs anterior)" color={C.blue} icon="📩"/>
-          <K label="Qualificados"     val={PV.at(-1).qual}  sub={`taxa ${PV.at(-1).taxaQ}%`} color={C.purple} icon="✅"/>
-          <K label="Briefings Sem"    val={PV.at(-1).brSem} sub="na semana" color={C.teal} icon="📋"/>
-          <K label="Taxa Qualif."     val={`${PV.at(-1).taxaQ}%`} sub="meta >35%" color={PV.at(-1).taxaQ>=35?C.green:C.orange} icon="📊"/>
+          <K label={`Leads Sem. ${PV.at(-1).w}`} val={PV.at(-1).leads} tp={((PV.at(-1).leads/PV.at(-2).leads-1)*100).toFixed(1)} color={C.blue} icon="📩"/>
+          <K label="Qualificados" val={PV.at(-1).qual} sub={`taxa ${PV.at(-1).taxaQ}%`} color={C.purple} icon="✅"/>
+          <K label="Briefings Semana" val={PV.at(-1).brSem} sub={`${lpC.brNaSem||0} Cric · ${lpA.brNaSem||0} Arar`} color={C.teal} icon="📋"/>
+          <K label="Taxa Qualif." val={`${PV.at(-1).taxaQ}%`} sub="meta >35%" color={PV.at(-1).taxaQ>=35?C.green:C.orange} icon="📊"/>
         </div>
-        <div style={{...G(2,16),marginTop:14}}>
+        <div style={{...G(3,16),marginTop:14}}>
           <Box title="Leads Totais vs Qualificados por Semana">
             <ResponsiveContainer width="100%" height={240}>
               <ComposedChart data={PV} margin={{top:4,right:8,left:-10,bottom:0}}>
@@ -488,38 +528,90 @@ function PgComercial(){
                 <Legend wrapperStyle={{fontSize:11}}/>
                 <Bar yAxisId="l" dataKey="leads" name="Leads" fill={C.blue} radius={[3,3,0,0]} barSize={12} opacity={.8}/>
                 <Bar yAxisId="l" dataKey="qual" name="Qualificados" fill={C.purple} radius={[3,3,0,0]} barSize={12}/>
+                <Bar yAxisId="l" dataKey="brSem" name="Briefings" fill={C.teal} radius={[3,3,0,0]} barSize={12} opacity={.8}/>
                 <Line yAxisId="r" type="monotone" dataKey="taxaQ" name="Taxa Qual.%" stroke={C.acc} strokeWidth={2.5} dot={{r:4}}/>
               </ComposedChart>
             </ResponsiveContainer>
           </Box>
 
-          <Box title="Criciúma vs Araranguá — Leads (a partir 13/02)">
-            <div style={{marginBottom:14}}>
-              <div style={{display:"flex",gap:12}}>
-                {[
-                  {label:"Criciúma 01/03",leads:56,qual:8,c:C.cric},
-                  {label:"Araranguá 01/03",leads:20,qual:5,c:C.arar},
-                ].map(l=>(
-                  <div key={l.label} style={{flex:1,background:C.surface,borderRadius:10,padding:"14px 16px",
-                    border:`1px solid ${l.c}40`}}>
-                    <div style={{fontSize:10,color:l.c,fontWeight:700,marginBottom:8}}>{l.label}</div>
-                    <div style={{fontSize:26,fontWeight:800,color:l.c}}>{l.leads}</div>
-                    <div style={{fontSize:11,color:C.muted}}>leads · {l.qual} qualificados</div>
-                  </div>
-                ))}
-              </div>
+          <Box title={`Funil de Conversão — Criciúma vs Araranguá (${lpC.w})`}>
+            <div style={{display:"flex",gap:8,marginBottom:12}}>
+              {funnelData.map(f=>(
+                <div key={f.name} style={{flex:1,background:C.surface,borderRadius:8,padding:"10px 12px",textAlign:"center",border:`1px solid ${f.fill}30`}}>
+                  <div style={{fontSize:9,color:f.fill,fontWeight:700,textTransform:"uppercase",letterSpacing:.6,marginBottom:4}}>{f.name}</div>
+                  <div style={{fontSize:16,fontWeight:800,color:f.fill}}>{f.cric+f.arar}</div>
+                  <div style={{fontSize:10,color:C.muted}}><span style={{color:C.cric}}>{f.cric}</span> · <span style={{color:C.arar}}>{f.arar}</span></div>
+                </div>
+              ))}
             </div>
-            <ResponsiveContainer width="100%" height={185}>
-              <BarChart data={[
-                {w:"13/02",cric:48,arar:8},{w:"20/02",cric:42,arar:24},
-              ]} margin={{top:4,right:8,left:-10,bottom:0}}>
+            <ResponsiveContainer width="100%" height={165}>
+              <BarChart data={funnelData} margin={{top:4,right:8,left:-10,bottom:0}} layout="vertical">
+                <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                <XAxis type="number" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis type="category" dataKey="name" tick={{fill:C.muted,fontSize:10}} width={70}/>
+                <Tooltip content={<TIP/>}/>
+                <Legend wrapperStyle={{fontSize:11}}/>
+                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[0,4,4,0]} barSize={16} stackId="a"/>
+                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[0,4,4,0]} barSize={16} stackId="a"/>
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
+
+          <Box title="Taxa de Qualificação — Criciúma vs Araranguá (%)">
+            <ResponsiveContainer width="100%" height={240}>
+              <ComposedChart data={compTaxaQ} margin={{top:4,right:8,left:-10,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}%`}/>
+                <Tooltip content={<TIP/>} formatter={v=>`${v}%`}/>
+                <Legend wrapperStyle={{fontSize:11}}/>
+                <ReferenceLine y={35} stroke={C.acc} strokeDasharray="4 4" label={{value:"Meta 35%",fill:C.acc,fontSize:9}}/>
+                <Line type="monotone" dataKey="cric" name="Criciúma" stroke={C.cric} strokeWidth={2.5} dot={{r:4}}/>
+                <Line type="monotone" dataKey="arar" name="Araranguá" stroke={C.arar} strokeWidth={2.5} dot={{r:4}} connectNulls/>
+              </ComposedChart>
+            </ResponsiveContainer>
+          </Box>
+        </div>
+
+        <div style={{...G(2,16),marginTop:14}}>
+          <Box title="Leads vs Qualificados — Criciúma vs Araranguá (a partir 13/02)">
+            <div style={{display:"flex",gap:12,marginBottom:12}}>
+              {[{label:`Criciúma ${lpC.w}`,leads:lpC.leads,qual:lpC.qual,c:C.cric},
+                {label:`Araranguá ${lpA.w}`,leads:lpA.leads,qual:lpA.qual,c:C.arar}
+              ].map(l=>(
+                <div key={l.label} style={{flex:1,background:C.surface,borderRadius:10,padding:"12px 16px",border:`1px solid ${l.c}40`}}>
+                  <div style={{fontSize:10,color:l.c,fontWeight:700,marginBottom:6}}>{l.label}</div>
+                  <div style={{display:"flex",alignItems:"baseline",gap:8}}>
+                    <span style={{fontSize:26,fontWeight:800,color:l.c}}>{l.leads}</span>
+                    <span style={{fontSize:12,color:C.muted}}>leads</span>
+                  </div>
+                  <div style={{fontSize:11,color:C.muted,marginTop:2}}>{l.qual} qualificados ({l.leads>0?((l.qual/l.leads)*100).toFixed(0):0}%)</div>
+                </div>
+              ))}
+            </div>
+            <ResponsiveContainer width="100%" height={160}>
+              <BarChart data={compLeads.filter((_,i)=>i>=compLeads.findIndex(d=>d.arar>0))} margin={{top:4,right:8,left:-10,bottom:0}}>
                 <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
                 <XAxis dataKey="w" tick={{fill:C.muted,fontSize:10}}/>
                 <YAxis tick={{fill:C.muted,fontSize:9}}/>
                 <Tooltip content={<TIP/>}/>
                 <Legend wrapperStyle={{fontSize:11}}/>
-                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={18}/>
-                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={18}/>
+                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={16}/>
+                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={16}/>
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
+
+          <Box title="Briefings Realizados na Semana — Criciúma vs Araranguá">
+            <ResponsiveContainer width="100%" height={220}>
+              <BarChart data={compBriefings} margin={{top:4,right:8,left:-10,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis tick={{fill:C.muted,fontSize:9}}/>
+                <Tooltip content={<TIP/>}/>
+                <Legend wrapperStyle={{fontSize:11}}/>
+                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={16}/>
+                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={16}/>
               </BarChart>
             </ResponsiveContainer>
           </Box>
@@ -528,53 +620,151 @@ function PgComercial(){
 
       <SEC title="Vendas" icon="💰">
         <div style={G(4,12)}>
-          <K label="Contratos Sem."   val={VD.at(-1).cS} sub="20/02" color={C.green} icon="📝"/>
-          <K label="Valor Semanal"    val={`R$${(VD.at(-1).vS/1000).toFixed(0)}K`} sub="semana" color={C.acc} icon="💲"/>
-          <K label="Carteira Total"   val={`R$${(VD.at(-1).cart/1e6).toFixed(2)}M`} sub="acumulada" color={C.blue} icon="📦"/>
-          <K label="Pipeline"         val={VD.at(-1).pipe} sub="clientes" color={C.purple} icon="🔄"/>
+          <K label={`Contratos ${VD.at(-1).w}`} val={VD.at(-1).cS} sub={`${VD.at(-1).aS} amb · R$${(VD.at(-1).vS/1000).toFixed(0)}K`} color={C.green} icon="📝"/>
+          <K label="Contratos no Mês" val={VD.at(-1).cM} sub={`R$${(VD.at(-1).vM/1000).toFixed(0)}K`} color={C.teal} icon="📅"/>
+          <K label="Carteira Total" val={`R$${(VD.at(-1).cart/1e6).toFixed(2)}M`} sub="acumulada" color={C.blue} icon="📦"/>
+          <K label="Pipeline" val={VD.at(-1).pipe} sub={`${VD.at(-1).nQ} neg · R$${(VD.at(-1).nR/1000).toFixed(0)}K`} color={C.purple} icon="🔄"/>
         </div>
         <div style={{...G(3,16),marginTop:14}}>
-          <Box title="Contratos por Semana">
-            <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={VD} margin={{top:4,right:8,left:-10,bottom:0}}>
+          <Box title="Valor Contratos (R$) + Qtd por Semana">
+            <ResponsiveContainer width="100%" height={215}>
+              <ComposedChart data={VD} margin={{top:4,right:30,left:-10,bottom:0}}>
                 <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
                 <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
-                <YAxis tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
                 <Tooltip content={<TIP/>}/>
                 <Legend wrapperStyle={{fontSize:11}}/>
-                <Bar dataKey="cS" name="Contratos Sem." fill={C.green} radius={[4,4,0,0]} barSize={14}/>
-                <Bar dataKey="cM" name="Contratos Mês"  fill={C.teal}  radius={[4,4,0,0]} barSize={14} opacity={.7}/>
-              </BarChart>
+                <Bar  yAxisId="l" dataKey="vS" name="Valor Sem. R$" fill={C.acc} radius={[4,4,0,0]} barSize={12} opacity={.8}/>
+                <Line yAxisId="r" type="monotone" dataKey="cS" name="Contratos Sem." stroke={C.green} strokeWidth={2.5} dot={{r:4}}/>
+                <Line yAxisId="r" type="monotone" dataKey="cM" name="Contratos Mês"  stroke={C.teal}  strokeWidth={2} dot={{r:3}} strokeDasharray="4 2"/>
+              </ComposedChart>
             </ResponsiveContainer>
           </Box>
           <Box title="Valor Contratos — Criciúma vs Araranguá">
-            <ResponsiveContainer width="100%" height={210}>
-              <BarChart data={[
-                {w:"23/01",c:4420,a:14000},{w:"30/01",c:91099,a:16803},
-                {w:"06/02",c:0,   a:12210},{w:"13/02",c:15000,a:35000},
-                {w:"20/02",c:71260,a:12626},
-              ]} margin={{top:4,right:8,left:-10,bottom:0}}>
+            <ResponsiveContainer width="100%" height={215}>
+              <BarChart data={compVendas} margin={{top:4,right:8,left:-10,bottom:0}}>
                 <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
                 <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
                 <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
                 <Tooltip content={<TIP/>} formatter={v=>`R$${v.toLocaleString("pt-BR")}`}/>
                 <Legend wrapperStyle={{fontSize:11}}/>
-                <Bar dataKey="c" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={14}/>
-                <Bar dataKey="a" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={14}/>
+                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={12}/>
+                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={12}/>
               </BarChart>
             </ResponsiveContainer>
           </Box>
-          <Box title="Carteira Acumulada por Loja">
-            <ResponsiveContainer width="100%" height={210}>
-              <LineChart margin={{top:4,right:8,left:-10,bottom:0}}>
+          <Box title="Carteira Acumulada — Criciúma vs Araranguá">
+            <ResponsiveContainer width="100%" height={215}>
+              <AreaChart data={compCartW} margin={{top:4,right:8,left:-10,bottom:0}}>
+                <defs>
+                  <linearGradient id="gCric" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.cric} stopOpacity={.25}/>
+                    <stop offset="95%" stopColor={C.cric} stopOpacity={0}/>
+                  </linearGradient>
+                  <linearGradient id="gArar" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.arar} stopOpacity={.25}/>
+                    <stop offset="95%" stopColor={C.arar} stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
-                <XAxis dataKey="w" allowDuplicatedCategory={false} tick={{fill:C.muted,fontSize:9}}/>
-                <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1e6).toFixed(2)}M`}/>
+                <Tooltip content={<TIP/>} formatter={v=>`R$${v.toLocaleString("pt-BR")}`}/>
+                <Legend wrapperStyle={{fontSize:11}}/>
+                <Area type="monotone" dataKey="cric" name="Criciúma" stroke={C.cric} fill="url(#gCric)" strokeWidth={2.5}/>
+                <Area type="monotone" dataKey="arar" name="Araranguá" stroke={C.arar} fill="url(#gArar)" strokeWidth={2.5}/>
+              </AreaChart>
+            </ResponsiveContainer>
+          </Box>
+        </div>
+
+        {/* Araranguá — evolução completa */}
+        <Box title="📍 Araranguá — Evolução Comercial (desde abertura)" style={{marginTop:16}}>
+          <div style={G(4,12)}>
+            <K label="Leads Semana" val={lpA.leads} sub={`${lpA.qual} qualif. (${lpA.taxaQ}%)`} color={C.arar} icon="📩"/>
+            <K label="Contratos Semana" val={lvA.cS} sub={`${lvA.aS} amb · R$${(lvA.vS/1000).toFixed(0)}K`} color={C.green} icon="📝"/>
+            <K label="Carteira" val={`R$${(lvA.cart/1000).toFixed(0)}K`} sub={`${lvA.pipe} clientes`} color={C.blue} icon="📦"/>
+            <K label="Em Negociação" val={lvA.nQ} sub={`R$${(lvA.nQ>0?287000/1000:0).toFixed(0)}K`} color={C.purple} icon="🔄"/>
+          </div>
+          <div style={{...G(3,16),marginTop:14}}>
+            <Box title="Leads + Qualificados Araranguá">
+              <ResponsiveContainer width="100%" height={190}>
+                <ComposedChart data={araData} margin={{top:4,right:8,left:-10,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                  <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                  <YAxis tick={{fill:C.muted,fontSize:9}}/>
+                  <Tooltip content={<TIP/>}/>
+                  <Legend wrapperStyle={{fontSize:10}}/>
+                  <Bar dataKey="leads" name="Leads" fill={C.arar} radius={[4,4,0,0]} barSize={16} opacity={.8}/>
+                  <Bar dataKey="qual" name="Qualificados" fill={C.purple} radius={[4,4,0,0]} barSize={16}/>
+                  <Line type="monotone" dataKey="cS" name="Contratos" stroke={C.green} strokeWidth={2.5} dot={{r:4}}/>
+                </ComposedChart>
+              </ResponsiveContainer>
+            </Box>
+            <Box title="Carteira Acumulada Araranguá (R$)">
+              <ResponsiveContainer width="100%" height={190}>
+                <AreaChart data={araData} margin={{top:4,right:8,left:-10,bottom:0}}>
+                  <defs>
+                    <linearGradient id="gArar2" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor={C.arar} stopOpacity={.3}/>
+                      <stop offset="95%" stopColor={C.arar} stopOpacity={0}/>
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                  <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                  <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                  <Tooltip content={<TIP/>} formatter={v=>`R$${v.toLocaleString("pt-BR")}`}/>
+                  <Area type="monotone" dataKey="cart" name="Carteira R$" stroke={C.arar} fill="url(#gArar2)" strokeWidth={2.5}/>
+                </AreaChart>
+              </ResponsiveContainer>
+            </Box>
+            <Box title="Pipeline Araranguá — Clientes em Negociação">
+              <ResponsiveContainer width="100%" height={190}>
+                <ComposedChart data={araData} margin={{top:4,right:30,left:-10,bottom:0}}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                  <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                  <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}}/>
+                  <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                  <Tooltip content={<TIP/>}/>
+                  <Legend wrapperStyle={{fontSize:10}}/>
+                  <Bar yAxisId="l" dataKey="pipe" name="Pipeline (clientes)" fill={C.arar} radius={[4,4,0,0]} barSize={16} opacity={.8}/>
+                  <Line yAxisId="r" type="monotone" dataKey="vS" name="Val. Contratos" stroke={C.green} strokeWidth={2.5} dot={{r:4}}/>
+                </ComposedChart>
+              </ResponsiveContainer>
+            </Box>
+          </div>
+        </Box>
+
+        <div style={{...G(2,16),marginTop:14}}>
+          <Box title="Pipeline de Clientes — Criciúma vs Araranguá">
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={compPipe} margin={{top:4,right:8,left:-10,bottom:0}}>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis tick={{fill:C.muted,fontSize:9}}/>
                 <Tooltip content={<TIP/>}/>
                 <Legend wrapperStyle={{fontSize:11}}/>
-                <Line data={VD_C.filter(d=>d.cart)} dataKey="cart" name="Criciúma" stroke={C.cric} strokeWidth={2.5} dot={{r:3}}/>
-                <Line data={VD_A} dataKey="cart" name="Araranguá" stroke={C.arar} strokeWidth={2.5} dot={{r:3}}/>
-              </LineChart>
+                <Bar dataKey="cric" name="Criciúma" fill={C.cric} radius={[4,4,0,0]} barSize={14}/>
+                <Bar dataKey="arar" name="Araranguá" fill={C.arar} radius={[4,4,0,0]} barSize={14}/>
+              </BarChart>
+            </ResponsiveContainer>
+          </Box>
+          <Box title="Negociações em Andamento — Valor (R$)">
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart data={VD.filter(d=>d.nR>0)} margin={{top:4,right:8,left:-10,bottom:0}}>
+                <defs>
+                  <linearGradient id="gNeg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={C.blue} stopOpacity={.3}/>
+                    <stop offset="95%" stopColor={C.blue} stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+                <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+                <YAxis tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
+                <Tooltip content={<TIP/>} formatter={v=>`R$${v.toLocaleString("pt-BR")}`}/>
+                <Area type="monotone" dataKey="nR" name="Val. Negociações" stroke={C.blue} fill="url(#gNeg)" strokeWidth={2.5}/>
+              </AreaChart>
             </ResponsiveContainer>
           </Box>
         </div>
@@ -582,7 +772,6 @@ function PgComercial(){
     </div>
   );
 }
-
 function PgOperacional(){
   return (
     <div>
@@ -838,6 +1027,42 @@ function PgMkt(){
 }
 
 function PgCorrelacoes(){
+  // Funil conversão semanal
+  const funnelSem = PV.map((p,i)=>({w:p.w,leads:p.leads,qual:p.qual,brief:p.brSem,cont:VD[i].cS,taxaFinal:p.leads>0?((VD[i].cS/p.leads)*100).toFixed(1):0}));
+  // Scatter: cada semana é um ponto — Leads vs Contratos
+  const scatterData = PV.map((p,i)=>({w:p.w,leads:p.leads,cont:VD[i].cS,z:VD[i].vS/10000||1}));
+  // Correlação MKT Investimento vs Leads
+  const mktLeads = MKT_E.map(m=>{const pv=PV.find(p=>p.w===m.w)||{}; return {w:m.w,inv:m.inv,leads:pv.leads||0,qual:pv.qual||0};});
+  // Radar de performance por semana (últimas 4 semanas)
+  const radarData = PV.slice(-4).map((p,i)=>{
+    const vd=VD[VD.length-4+i], rh=RH[RH.length-4+i], pr=PROD[PROD.length-4+i], cf=CF[CF.length-4+i];
+    return {
+      w:p.w,
+      "Leads":Math.min(Math.round(p.leads/80*100),100),
+      "Qualif.":Math.min(Math.round(p.taxaQ/50*100),100),
+      "Vendas":Math.min(Math.round(vd.vS/250000*100),100),
+      "Produção":Math.min(Math.round((pr.ini>0?10:5)/10*100),100),
+      "Conf.":Math.min(Math.round(cf.conf/15*100),100),
+      "RH":Math.max(0,100-Math.round(rh.abs/15*100)),
+    };
+  });
+  // Horas extras vs Produção
+  const hexProd = RH.map((r,i)=>({w:r.w,hex:r.hexTotal,ini:PROD[i].ini,fin:PROD[i].fin}));
+  // AT chamados vs Produção finalizada (operacional)
+  const atProd = AT.map((a,i)=>({w:a.w,atAber:a.aberto,prodFin:PROD[i].fin,mont:MONT[i].conc}));
+  // Carteira total vs Leads acumulados
+  const cartLeads = VD.filter(d=>d.cart>0).map((d,i)=>{const p=PV.find(x=>x.w===d.w)||{}; return {w:d.w,cart:d.cart,leads:p.leads||0};});
+  // Eficiência por loja (radar)
+  const perf_C={sub:"Criciúma",taxaQ:PV_C.at(-1).taxaQ,vSemK:VD_C.at(-1).vS/1000,cartM:VD_C.at(-1).cart/1e6*100,pipe:VD_C.at(-1).pipe};
+  const lpC2=PV_C.at(-1), lpA2=PV_A.at(-1);
+  const radarLoja=[
+    {metric:"Taxa Qualif.",cric:Math.min(lpC2.taxaQ*2,100),arar:Math.min(lpA2.taxaQ*2,100)},
+    {metric:"Conv. Contrato",cric:Math.min((VD_C.at(-1).cS/lpC2.leads)*100*10,100),arar:Math.min((VD_A.at(-1).cS/lpA2.leads)*100*10,100)},
+    {metric:"Briefings/Lead",cric:Math.min(((lpC2.brNaSem||0)/lpC2.leads)*100*5,100),arar:Math.min(((lpA2.brNaSem||0)/lpA2.leads)*100*5,100)},
+    {metric:"Carteira K$",cric:Math.min(VD_C.at(-1).cart/25000,100),arar:Math.min(VD_A.at(-1).cart/7000,100)},
+    {metric:"Pipeline",cric:Math.min(VD_C.at(-1).pipe/50*100,100),arar:Math.min(VD_A.at(-1).pipe/25*100,100)},
+  ];
+
   return (
     <div>
       {/* Cadeia de valor */}
@@ -854,22 +1079,25 @@ function PgCorrelacoes(){
       </Box>
 
       <div style={G(3,16)}>
-        <Box title="Funil Semanal — Leads → Contratos">
+        {/* 1. Funil Semanal completo */}
+        <Box title="Funil de Conversão — Leads → Contratos">
           <ResponsiveContainer width="100%" height={220}>
-            <ComposedChart data={PV.map((p,i)=>({...p,cont:VD[i].cS}))} margin={{top:4,right:8,left:-10,bottom:0}}>
+            <ComposedChart data={funnelSem} margin={{top:4,right:30,left:-10,bottom:0}}>
               <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
               <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
               <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}}/>
-              <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
+              <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}%`}/>
               <Tooltip content={<TIP/>}/>
               <Legend wrapperStyle={{fontSize:10}}/>
               <Bar yAxisId="l" dataKey="leads" name="Leads" fill={C.blue} radius={[3,3,0,0]} barSize={10}/>
               <Bar yAxisId="l" dataKey="qual"  name="Qualif." fill={C.purple} radius={[3,3,0,0]} barSize={10}/>
-              <Line yAxisId="r" type="monotone" dataKey="cont" name="Contratos" stroke={C.green} strokeWidth={2.5} dot={{r:4}}/>
+              <Line yAxisId="r" type="monotone" dataKey="taxaFinal" name="Conv.% Lead→Cont" stroke={C.acc} strokeWidth={2.5} dot={{r:4}}/>
+              <Line yAxisId="l" type="monotone" dataKey="cont" name="Contratos" stroke={C.green} strokeWidth={2.5} dot={{r:4}}/>
             </ComposedChart>
           </ResponsiveContainer>
         </Box>
 
+        {/* 2. Leads (T) → Contratos (T+1) */}
         <Box title="Leads (T) → Contratos (T+1)" note="Ciclo venda ~1 semana">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={PV.slice(0,-1).map((p,i)=>({w:PV[i+1].w,leads:p.leads,cont:VD[i+1].cS}))}
@@ -886,6 +1114,62 @@ function PgCorrelacoes(){
           </ResponsiveContainer>
         </Box>
 
+        {/* 3. SCATTER — Leads vs Contratos */}
+        <Box title="Scatter — Leads vs Contratos por Semana" note="Tamanho = valor R$">
+          <ResponsiveContainer width="100%" height={220}>
+            <ScatterChart margin={{top:4,right:20,left:-10,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+              <XAxis dataKey="leads" name="Leads" tick={{fill:C.muted,fontSize:9}} label={{value:"Leads",fill:C.muted,fontSize:9,position:"insideBottom",offset:-4}}/>
+              <YAxis dataKey="cont" name="Contratos" tick={{fill:C.muted,fontSize:9}}/>
+              <ZAxis dataKey="z" range={[40,300]}/>
+              <Tooltip content={({payload})=>{
+                if(!payload?.length)return null;
+                const d=payload[0]?.payload||{};
+                return <div style={{background:C.card,border:`1px solid ${C.border}`,borderRadius:8,padding:"8px 12px",fontSize:11}}>
+                  <div style={{fontWeight:700,marginBottom:4,color:C.acc}}>{d.w}</div>
+                  <div>Leads: {d.leads}</div><div>Contratos: {d.cont}</div>
+                </div>;
+              }}/>
+              <Scatter data={scatterData} fill={C.acc} opacity={.8}/>
+            </ScatterChart>
+          </ResponsiveContainer>
+        </Box>
+
+        {/* 4. MKT Investimento → Leads */}
+        <Box title="MKT Investimento → Leads Gerados" note="ROI do investimento em MKT">
+          <ResponsiveContainer width="100%" height={220}>
+            <ComposedChart data={mktLeads} margin={{top:4,right:30,left:-10,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+              <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+              <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`R$${(v/1000).toFixed(0)}K`}/>
+              <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
+              <Tooltip content={<TIP/>}/>
+              <Legend wrapperStyle={{fontSize:10}}/>
+              <Bar yAxisId="l" dataKey="inv" name="Invest. MKT R$" fill={C.orange} radius={[4,4,0,0]} barSize={16} opacity={.8}/>
+              <Line yAxisId="r" type="monotone" dataKey="leads" name="Leads Totais" stroke={C.blue} strokeWidth={2.5} dot={{r:5}}/>
+              <Line yAxisId="r" type="monotone" dataKey="qual"  name="Qualificados" stroke={C.purple} strokeWidth={2} dot={{r:4}} strokeDasharray="4 2"/>
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Box>
+
+        {/* 5. Horas Extras vs Produção */}
+        <Box title="Horas Extras vs Produção Iniciada" note="Esforço × output da fábrica">
+          <ResponsiveContainer width="100%" height={220}>
+            <ComposedChart data={hexProd} margin={{top:4,right:30,left:-10,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+              <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+              <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}h`}/>
+              <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
+              <Tooltip content={<TIP/>}/>
+              <Legend wrapperStyle={{fontSize:10}}/>
+              <Bar yAxisId="l" dataKey="hex" name="Horas Extras (h)" fill={C.teal} radius={[4,4,0,0]} barSize={12} opacity={.8}/>
+              <Line yAxisId="r" type="monotone" dataKey="ini" name="Prod. Iniciados" stroke={C.acc} strokeWidth={2.5} dot={{r:4}}/>
+              <Line yAxisId="r" type="monotone" dataKey="fin" name="Prod. Finalizados" stroke={C.green} strokeWidth={2} dot={{r:3}} strokeDasharray="4 2"/>
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Box>
+
+        {/* 6. Conferidos (T) → Montagem (T+1) */}
         <Box title="Conferidos (T) → Montagem (T+1)" note="Lead time conferência→montagem">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={CF.slice(0,-1).map((c,i)=>({w:CF[i+1].w,conf:c.conf,mont:MONT[i+1].ini}))}
@@ -902,9 +1186,10 @@ function PgCorrelacoes(){
           </ResponsiveContainer>
         </Box>
 
-        <Box title="Absenteísmo RH vs Produção Finalizada" note="Impacto ausência na produção">
+        {/* 7. Absenteísmo vs Produção */}
+        <Box title="Absenteísmo RH vs Produção Finalizada" note="Impacto ausência na fábrica">
           <ResponsiveContainer width="100%" height={220}>
-            <ComposedChart data={RH.map((r,i)=>({w:r.w,abs:r.abs,fin:PROD[i].fin}))}
+            <ComposedChart data={RH.map((r,i)=>({w:r.w,abs:r.abs,hex:r.hexTotal,fin:PROD[i].fin}))}
               margin={{top:4,right:30,left:-10,bottom:0}}>
               <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
               <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
@@ -912,13 +1197,14 @@ function PgCorrelacoes(){
               <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
               <Tooltip content={<TIP/>}/>
               <Legend wrapperStyle={{fontSize:10}}/>
-              <Line yAxisId="l" type="monotone" dataKey="abs" name="Absenteísmo %" stroke={C.red}   strokeWidth={2.5} dot={{r:3}}/>
+              <Line yAxisId="l" type="monotone" dataKey="abs" name="Absenteísmo %" stroke={C.red} strokeWidth={2.5} dot={{r:3}}/>
               <Bar  yAxisId="r" dataKey="fin" name="Prod. Finalizados" fill={C.green} radius={[3,3,0,0]} barSize={12} opacity={.8}/>
             </ComposedChart>
           </ResponsiveContainer>
         </Box>
 
-        <Box title="AT em Aberto vs Cobranças SAC" note="Relação inversa esperada">
+        {/* 8. AT em Aberto vs Cobranças SAC */}
+        <Box title="AT em Aberto vs Cobranças SAC" note="Relação inversa: AT ↓ = SAC ↓">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={AT.map((a,i)=>({w:a.w,at:a.aberto,sac:SAC[i].cobr}))}
               margin={{top:4,right:30,left:-10,bottom:0}}>
@@ -928,24 +1214,59 @@ function PgCorrelacoes(){
               <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
               <Tooltip content={<TIP/>}/>
               <Legend wrapperStyle={{fontSize:10}}/>
-              <Area yAxisId="l" type="monotone" dataKey="at"  name="AT Aberto" stroke={C.red}    fill={`${C.red}20`} strokeWidth={2}/>
+              <Area yAxisId="l" type="monotone" dataKey="at"  name="AT Aberto" stroke={C.red} fill={`${C.red}20`} strokeWidth={2}/>
               <Line yAxisId="r" type="monotone" dataKey="sac" name="Cobranças SAC" stroke={C.orange} strokeWidth={2.5} dot={{r:4}}/>
             </ComposedChart>
           </ResponsiveContainer>
         </Box>
 
-        <Box title="Margem vs Valor Contratos" note="Rentabilidade × volume de vendas">
+        {/* 9. Margem vs Valor Contratos */}
+        <Box title="Margem Bruta % vs Valor Contratos" note="Rentabilidade × volume">
           <ResponsiveContainer width="100%" height={220}>
             <ComposedChart data={FIN.map((f,i)=>({w:f.w,mg:f.mg,vS:VD[i].vS}))}
               margin={{top:4,right:30,left:-10,bottom:0}}>
               <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
               <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
-              <YAxis yAxisId="l" domain={[65,85]} tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}%`}/>
+              <YAxis yAxisId="l" domain={[55,90]} tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${v}%`}/>
               <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1000).toFixed(0)}K`}/>
               <Tooltip content={<TIP/>}/>
               <Legend wrapperStyle={{fontSize:10}}/>
+              <ReferenceLine yAxisId="l" y={70} stroke={C.green} strokeDasharray="4 4"/>
               <Line yAxisId="l" type="monotone" dataKey="mg" name="Margem %" stroke={C.purple} strokeWidth={2.5} dot={{r:3}}/>
               <Bar  yAxisId="r" dataKey="vS" name="Val. Contratos" fill={C.acc} radius={[3,3,0,0]} barSize={10} opacity={.8}/>
+            </ComposedChart>
+          </ResponsiveContainer>
+        </Box>
+      </div>
+
+      {/* Radar: Performance por loja */}
+      <div style={{...G(2,16),marginTop:16}}>
+        <Box title="Radar de Performance — Criciúma vs Araranguá (sem. atual)" note="Escala 0–100 normalizada">
+          <ResponsiveContainer width="100%" height={300}>
+            <RadarChart data={radarLoja} cx="50%" cy="50%">
+              <PolarGrid stroke={C.border}/>
+              <PolarAngleAxis dataKey="metric" tick={{fill:C.muted,fontSize:10}}/>
+              <PolarRadiusAxis angle={30} domain={[0,100]} tick={{fill:C.muted,fontSize:8}} tickFormatter={v=>`${v}`}/>
+              <Radar name="Criciúma" dataKey="cric" stroke={C.cric} fill={C.cric} fillOpacity={.25}/>
+              <Radar name="Araranguá" dataKey="arar" stroke={C.arar} fill={C.arar} fillOpacity={.25}/>
+              <Legend wrapperStyle={{fontSize:11}}/>
+              <Tooltip content={<TIP/>}/>
+            </RadarChart>
+          </ResponsiveContainer>
+        </Box>
+
+        <Box title="Carteira Acumulada vs Leads Semanais" note="Crescimento patrimonial × esforço comercial">
+          <ResponsiveContainer width="100%" height={300}>
+            <ComposedChart data={cartLeads} margin={{top:4,right:30,left:-10,bottom:0}}>
+              <CartesianGrid strokeDasharray="3 3" stroke={C.border}/>
+              <XAxis dataKey="w" tick={{fill:C.muted,fontSize:9}}/>
+              <YAxis yAxisId="l" tick={{fill:C.muted,fontSize:9}} tickFormatter={v=>`${(v/1e6).toFixed(2)}M`}/>
+              <YAxis yAxisId="r" orientation="right" tick={{fill:C.muted,fontSize:9}}/>
+              <Tooltip content={<TIP/>}/>
+              <Legend wrapperStyle={{fontSize:10}}/>
+              <Area yAxisId="l" type="monotone" dataKey="cart" name="Carteira Total R$"
+                stroke={C.acc} fill={`${C.acc}20`} strokeWidth={2.5}/>
+              <Bar yAxisId="r" dataKey="leads" name="Leads Semana" fill={C.blue} radius={[4,4,0,0]} barSize={10} opacity={.7}/>
             </ComposedChart>
           </ResponsiveContainer>
         </Box>
@@ -953,7 +1274,6 @@ function PgCorrelacoes(){
     </div>
   );
 }
-
 function PgPCP(){
   return (
     <div>
